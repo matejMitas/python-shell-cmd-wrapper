@@ -45,6 +45,11 @@ class Library:
 			}
 		}
 
+		"""
+		Fetch correct blueprint for command 
+		"""
+		self._get_blueprint()
+
 	"""
 	PUBLIC methods
 	"""
@@ -85,4 +90,9 @@ class Library:
 		return ['-i', self.structure['io']['input'], '-o', self.structure['io']['output']]
 
 	def _get_blueprint(self):
+
+		parser = Parser(self.blueprint_name)
+		parser.parse()
+
+
 		print(self.blueprint_name)
