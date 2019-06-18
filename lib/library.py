@@ -9,10 +9,11 @@ Generic library imports
 """
 Class imports
 """
-from lib._blueprint_parser import Parser
+from lib.parser import Parser
 """
 Functional imports
 """
+import lib.defs as defs
 
 class Library:
 	def __init__(self, blueprint_name, lib_name=None):
@@ -60,11 +61,17 @@ class Library:
 		self.fixed_set = False
 
 	def construct(self):
+		"""
+		Transform abstract data structure to list used by subprocess 
+		"""
 		output_buffer = []
-
+		"""
+		Add constant flags and items
+		"""
+		output_buffer += [self.lib_name if self.lib_name else self.blueprint_name]
 		output_buffer += self._generate_io()
 
-		print(output_buffer)
+		#print(output_buffer)
 		
 		return {
 			'index': 0,
@@ -92,7 +99,7 @@ class Library:
 	def _get_blueprint(self):
 
 		parser = Parser(self.blueprint_name)
-		parser.parse()
+		if not parser.parse():
+			return 
 
-
-		print(self.blueprint_name)
+		#print(self.blueprint_name)
