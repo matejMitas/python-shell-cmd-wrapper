@@ -1,0 +1,63 @@
+{
+	"settings": {
+		"libraries" : [
+			"kdu_compress", "opj_compress"
+		]
+	},
+	"flags": {
+		"input": [
+			{
+				"flag"		: "-i",
+				"unifier"	: null,
+				"format"	: "single"
+			},
+			{
+				"opt"		: "-i",
+				"unifier"	: null,
+				"format"	: "single"
+			}
+		],
+		"output": [
+			{
+				"flag"		: "-o",
+				"unifier"	: null,
+				"format"	: "single"
+			},
+			{
+				"flag"		: "-o",
+				"unifier"	: null,
+				"format"	: "single"
+			}
+		],
+		"blocks": [
+			{
+				"flag"		: "Cblk",
+				"unifier"	: "=",
+				"format"	: "pair_braces"
+			},
+			{
+				"flag"		: "-b",
+				"unifier"	: null,
+				"format"	: "pair"
+			}
+		],
+		"precincts": [
+			{
+				"flag"		: "Cprecincts",
+				"unifier"	: "=",
+				"format"	: "pair_braces",
+				"list"		: {
+					"divider": ","
+				}
+			},
+			{
+				"flag"		: "-c",
+				"unifier"	: null,
+				"format"	: "pair_box",
+				"list"		: {
+					"divider": ","
+				}
+			}
+		]
+	}
+}

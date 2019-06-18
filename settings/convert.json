@@ -1,0 +1,25 @@
+{
+	"flags": {
+		"input": [
+			{
+				"opt"		: null,
+				"unifier"	: null,
+				"format"	: "single"
+			}
+		],
+		"output": [
+			{
+				"opt"		: null,
+				"unifier"	: null,
+				"format"	: "single"
+			}
+		],
+		"resize": [
+			{
+				"opt"		: "-resize",
+				"unifier"	: "=",
+				"format"	: "pair_braces"
+			}
+		]
+	}
+}
