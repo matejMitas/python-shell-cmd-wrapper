@@ -20,10 +20,14 @@ class Parser:
 
 		self.semantics = {
 			'required': [
-				['flags']
+				['flags'],
+				[],
+				["flag", "unifier", "format"]
 			],
 			'optional': [
-				['settings']
+				['settings'],
+				[],
+				['list']
 			]
 		}
 
@@ -86,7 +90,7 @@ class Parser:
 			if key not in ptr:
 				ptr.append(key)
 
-			print('{} - {}{}'.format(self.nesting_level, '\t'*(self.nesting_level), key))
+			#print('{} - {}{}'.format(self.nesting_level, '\t'*(self.nesting_level), key))
 			self.nest_key = key
 			try:
 				l = entry[key]
@@ -96,12 +100,12 @@ class Parser:
 					for item in l:
 						if self._is_primitive(item):
 							pass
-							print('{}{}'.format('\t'*(self.nesting_level+1), item))
+							#print('{}{}'.format('\t'*(self.nesting_level+1), item))
 						else:
 							self._get_indexes_json(item)
 				else:
-					pass
-					print('{}{} - {}'.format('\t'*(self.nesting_level+1), l, self.nest_key))
+					self._is_valid_value_key(self.nest_key, l)
+					#print('{}{}'.format('\t'*(self.nesting_level+1), l))
 			except TypeError:
 				pass
 		"""
@@ -109,6 +113,9 @@ class Parser:
 		must be decremeted to allow for correct leveling
 		"""
 		self.nesting_level -= 1
+
+	def _is_valid_value_key(self, key, value):
+		print(key, value)
 
 	def _is_primitive(self, value):
 		primitives = (str, bool, float, int)
