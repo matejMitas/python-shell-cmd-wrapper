@@ -2,23 +2,23 @@
 	"flags": {
 		"_input": [
 			{
-				"opt"		: null,
+				"flag"		: null,
 				"unifier"	: null,
 				"format"	: "single"
 			}
 		],
 		"_output": [
 			{
-				"opt"		: null,
+				"flag"		: null,
 				"unifier"	: null,
 				"format"	: "single"
 			}
 		],
-		"resize": [
+		"rgb": [
 			{
-				"opt"		: "-resize",
-				"unifier"	: "=",
-				"format"	: "pair_braces"
+				"flag"			: "-rgb",
+				"unifier"		: null,
+				"format"		: "toggle"
 			}
 		]
 	}

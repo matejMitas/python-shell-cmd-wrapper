@@ -19,19 +19,6 @@ class Parser:
 	def __init__(self, path):
 		self.path = path
 
-		self.semantics = {
-			'required': [
-				['flags'],
-				[],
-				["flag", "unifier", "format"]
-			],
-			'optional': [
-				['settings'],
-				[],
-				['list']
-			]
-		}
-
 		self.nesting_level = -1
 		self.nest_key = None
 		self.levels = []
@@ -44,13 +31,19 @@ class Parser:
 			with open(self.path) as json_file:
 				try:
 					self.blueprint_file = json.load(json_file)
-					self._check_blueprint()
-					return True
+					if self._check_blueprint():
+						return True
 				except ValueError as error:
 					print(error)
 					return False
 		else:
 			return False
+
+	def get_flags(self):
+		return self.blueprint_file['flags']
+
+	def get_libraries(self):
+		return self.blueprint_file['settings']['libraries']
 		
 	"""
 	PRIVATE methods
@@ -75,6 +68,7 @@ class Parser:
 			js.validate(instance=self.blueprint_file, schema=defs.GENERAL_SCHEMA)
 		except js.exceptions.ValidationError as expt:
 			print(expt)
+			return False
 
 		"""
 		Multiple libraries can be described in one file if 'settings' key
@@ -87,10 +81,12 @@ class Parser:
 		for flag_key, flag_value in self.blueprint_file['flags'].items():
 			if len(flag_value) != no_of_libraries:
 				print('no')
+				return False
 
 			for flag in flag_value:
 				try:
 					js.validate(instance=flag, schema=defs.FLAG_SCHEMA)
 				except js.exceptions.ValidationError as expt:
 					print(expt)
+		return True
 			

@@ -1,0 +1,11 @@
+{
+	"flags": {
+		"_output": [
+			{
+				"flag"		: "--output-document",
+				"unifier"	: "=",
+				"format"	: "single"
+			}
+		]
+	}
+}

@@ -100,4 +100,7 @@ class Library:
 		if not parser.parse():
 			return 
 
+		print(parser.get_libraries())
+		print(parser.get_flags())
+
 		#print(self.blueprint_name)

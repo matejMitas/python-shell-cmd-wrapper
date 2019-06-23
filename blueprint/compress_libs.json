@@ -5,7 +5,7 @@
 		]
 	},
 	"flags": {
-		"input": [
+		"_input": [
 			{
 				"flag"		: "-i",
 				"unifier"	: null,
@@ -17,7 +17,7 @@
 				"format"	: "single"
 			}
 		],
-		"output": [
+		"_output": [
 			{
 				"flag"		: "-o",
 				"unifier"	: null,
@@ -56,6 +56,53 @@
 				"format"	: "pair_box",
 				"list"		: {
 					"divider": ","
+				}
+			}
+		],
+		"mode": [
+			{
+				"flag"		: "Cmodes",
+				"unifier"	: "=",
+				"format" 	: "single",
+				"list"		: {
+					"divider": "|"
+				}
+			},
+			{
+				"flag"		: "-M",
+				"unifier"	: null,
+				"format"	: "match",
+				"match"		: {
+					"pattern": {
+						"BYPASS"	: 1,
+						"RESET"		: 2, 
+						"RESTART"	: 4,
+						"VSC"		: 8,
+						"ERTERM"	: 16,
+						"SEGMARK"	: 32
+					},
+					"modifier"	: "+"
+				}
+			}
+		],
+		"compression": [
+			{
+				"flag"			: "Creversible",
+				"unifier"		: "=",
+				"format"		: "match",
+				"match": {
+					"pattern": {
+						"lossy"		: "no",
+						"lossless"	: "yes"
+					}
+				}
+			},
+			{
+				"flag"			: "-I",
+				"unifier"		: null,
+				"format"		: "toggle",
+				"toggle": {
+					"pattern": ["lossless", "lossy"]
 				}
 			}
 		]
