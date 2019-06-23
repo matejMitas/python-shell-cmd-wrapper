@@ -70,8 +70,6 @@ class Library:
 		"""
 		output_buffer += [self.lib_name if self.lib_name else self.blueprint_name]
 		output_buffer += self._generate_io()
-
-		#print(output_buffer)
 		
 		return {
 			'index': 0,

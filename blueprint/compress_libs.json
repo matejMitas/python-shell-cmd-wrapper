@@ -12,7 +12,7 @@
 				"format"	: "single"
 			},
 			{
-				"opt"		: "-i",
+				"flag"		: "-i",
 				"unifier"	: null,
 				"format"	: "single"
 			}

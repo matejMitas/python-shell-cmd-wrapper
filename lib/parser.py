@@ -9,6 +9,7 @@ import os
 import json
 from pprint import pprint
 from termcolor import colored
+import jsonschema as js
 """
 Functional imports
 """
@@ -66,58 +67,30 @@ class Parser:
 			return False
 
 	def _check_blueprint(self):
-		self._get_indexes_json(self.blueprint_file)
-		pprint(self.levels)
+		"""
+		Validate general structure (flags list and settings)
+		Schema can be found in defs.py
+		"""
+		try:
+			js.validate(instance=self.blueprint_file, schema=defs.GENERAL_SCHEMA)
+		except js.exceptions.ValidationError as expt:
+			print(expt)
 
-	def _get_indexes_json(self, entry=None):
 		"""
-		Each invokation increases nesting level
+		Multiple libraries can be described in one file if 'settings' key
+		is present on root level otherwise 
 		"""
-		self.nesting_level += 1
-		"""
-		Loop through whole tree until atomic values are reached
-		"""
-		for key in entry:
-			"""
-			Add key to corresponding level
-			"""
-			try:
-				self.levels[self.nesting_level]
-			except IndexError:
-				self.levels.append([])
+		no_of_libraries = 1
+		if 'settings' in self.blueprint_file:
+			no_of_libraries = len(self.blueprint_file['settings']['libraries'])
 
-			ptr = self.levels[self.nesting_level]
-			if key not in ptr:
-				ptr.append(key)
+		for flag_key, flag_value in self.blueprint_file['flags'].items():
+			if len(flag_value) != no_of_libraries:
+				print('no')
 
-			#print('{} - {}{}'.format(self.nesting_level, '\t'*(self.nesting_level), key))
-			self.nest_key = key
-			try:
-				l = entry[key]
-				if type(l) == dict:
-					self._get_indexes_json(l)
-				elif type(l) == list:
-					for item in l:
-						if self._is_primitive(item):
-							pass
-							#print('{}{}'.format('\t'*(self.nesting_level+1), item))
-						else:
-							self._get_indexes_json(item)
-				else:
-					self._is_valid_value_key(self.nest_key, l)
-					#print('{}{}'.format('\t'*(self.nesting_level+1), l))
-			except TypeError:
-				pass
-		"""
-		After each recursively invoked loop nesting level counter
-		must be decremeted to allow for correct leveling
-		"""
-		self.nesting_level -= 1
-
-	def _is_valid_value_key(self, key, value):
-		print(key, value)
-
-	def _is_primitive(self, value):
-		primitives = (str, bool, float, int)
-		return True if type(value) in primitives else False
+			for flag in flag_value:
+				try:
+					js.validate(instance=flag, schema=defs.FLAG_SCHEMA)
+				except js.exceptions.ValidationError as expt:
+					print(expt)
 			
