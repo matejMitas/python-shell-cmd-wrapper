@@ -31,6 +31,14 @@ class Parser:
 			with open(self.path) as json_file:
 				try:
 					self.blueprint_file = json.load(json_file)
+					"""
+					Multiple libraries can be described in one file if 'settings' key
+					is present on root level otherwise 
+					"""
+					self.no_of_libraries = 1
+					if 'settings' in self.blueprint_file:
+						self.no_of_libraries = len(self.blueprint_file['settings']['libraries'])
+
 					if self._check_blueprint():
 						return True
 				except ValueError as error:
@@ -43,7 +51,8 @@ class Parser:
 		return self.blueprint_file['flags']
 
 	def get_libraries(self):
-		return self.blueprint_file['settings']['libraries']
+		if self.no_of_libraries > 1:
+			return self.blueprint_file['settings']['libraries']
 		
 	"""
 	PRIVATE methods
@@ -69,17 +78,12 @@ class Parser:
 		except js.exceptions.ValidationError as expt:
 			print(expt)
 			return False
-
 		"""
-		Multiple libraries can be described in one file if 'settings' key
-		is present on root level otherwise 
+		Two schemas are defined, after checking general structure, each flags is 
+		validated againts its schema
 		"""
-		no_of_libraries = 1
-		if 'settings' in self.blueprint_file:
-			no_of_libraries = len(self.blueprint_file['settings']['libraries'])
-
 		for flag_key, flag_value in self.blueprint_file['flags'].items():
-			if len(flag_value) != no_of_libraries:
+			if len(flag_value) != self.no_of_libraries:
 				print('no')
 				return False
 

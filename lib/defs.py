@@ -45,7 +45,7 @@ FLAG_SCHEMA = {
 	'additionalProperties'	: False,
 	'properties': {
 		'flag': {
-			'type'		: 'string'
+			'type'		: ['null', 'string']
 		}, 
 		'unifier': {
 			'type'		: ['null', 'string']
