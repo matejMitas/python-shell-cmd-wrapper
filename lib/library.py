@@ -5,7 +5,7 @@ Business logic of the main module.
 """
 Generic library imports
 """
-
+from pprint import pprint
 """
 Class imports
 """
@@ -16,14 +16,14 @@ Functional imports
 import lib.defs as defs
 
 class Library:
-	def __init__(self, blueprint_name, lib_name=None):
+	def __init__(self, blueprint, lib=None, **kwargs):
 		"""
 		Each blueprint can contain multiple libraries so further
 		distinguishing needs to take place in form of lib_name providing
 		actual name
 		"""
-		self.blueprint_name = blueprint_name
-		self.lib_name = lib_name
+		self.blueprint_name = blueprint
+		self.lib_name = lib
 		"""
 		Fixed flags can only be set once 
 		"""
@@ -32,17 +32,13 @@ class Library:
 		Internal structure for storing flags
 		"""
 		self.structure = {
-			'io'		: {
-				'input'			: None,
-				'output'		: None
-			},
 			'fixed'		: {
-				'blueprint'		: {},
+				'original'		: {},
 				'transformed'	: []
 			},
 			'variable'	: {
-				'blueprint'		: {},
-				'curr'			: 0
+				'original'		: {},
+				'transformed'	: []
 			}
 		}
 
@@ -75,11 +71,16 @@ class Library:
 			'items': []
 		}
 
-	def set_from_routine(self, json_file):
+	def set_from_routine(self, routine_file):
+		parser = Parser('routine', routine_file)
+
 		pass
 
 	def set_fixed(self, **kwargs):
-		pass
+		for flag, opt in kwargs.items():
+			print(flag, opt)
+			print(self._match_flag(flag))
+			print()
 
 	def set_variable(self, **kwargs):
 		pass
@@ -87,18 +88,20 @@ class Library:
 	"""
 	PRIVATE methods
 	"""
-	def _generate_io(self):
-		return [self.structure['io']['input'], self.structure['io']['output']]
-
 	def _get_blueprint(self):
-		parser = Parser(self.blueprint_name)
+		parser = Parser('blueprint', self.blueprint_name, self.lib_name)
 		if not parser.parse():
-			return 
+			return False
 
-		if parser.get_libraries():
-			self.program_indexes = list(defs.LIBS.values())
+		self.program_indexes = parser.get_libraries()
+		if not self.program_indexes:
+			raise IndexError()
 
 		self.flags_match_table = parser.get_flags()
+		if not self.flags_match_table:
+			raise ValueError()
+
+		return True
 
 	def _transform_flag(self, opts):
 		"""
@@ -110,3 +113,7 @@ class Library:
 		"""
 		Find correct flag options in blueprint
 		"""
+		full_flag = '@{}'.format(flag)
+		print(full_flag)
+		print(self.flags_match_table[full_flag][0])
+		

@@ -2,8 +2,13 @@
 Definitions used throught the program.
 """
 
-BLUEPRINTS_PATH = './blueprint'
-ROUTINES_PATH 	= './routine'
+BLUEPRINT = 'blueprint'
+ROUTINE = 'routine'
+
+BLUEPRINTS_PATH = './{}'.format(BLUEPRINT)
+ROUTINES_PATH 	= './{}'.format(ROUTINE)
+
+
 
 FORMAT_OPTIONS = {
 	'single'		: '{}',
