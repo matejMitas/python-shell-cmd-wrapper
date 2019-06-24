@@ -3,12 +3,12 @@
         {
             "variable_flags" : [
                 {
-                    "flag" : "@resize",
+                    "flag" : "resize",
                     "opts" : [10, 20, 50, 70, 90]
                 }
             ],
             "fixed_flags"   : {
-                "@colorspace": "rgb"
+                "colorspace": "rgb"
             }
         }
     ]
