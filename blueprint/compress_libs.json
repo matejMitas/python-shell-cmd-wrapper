@@ -1,11 +1,14 @@
 {
 	"settings": {
-		"libraries" : [
+		"required_flags": [
+			"@input", "@output"
+		],
+		"libraries" 	: [
 			"kdu_compress", "opj_compress"
 		]
 	},
 	"flags": {
-		"_input": [
+		"@input": [
 			{
 				"flag"		: "-i",
 				"unifier"	: null,
@@ -17,7 +20,7 @@
 				"format"	: "single"
 			}
 		],
-		"_output": [
+		"@output": [
 			{
 				"flag"		: "-o",
 				"unifier"	: null,
@@ -29,7 +32,7 @@
 				"format"	: "single"
 			}
 		],
-		"blocks": [
+		"@blocks": [
 			{
 				"flag"		: "Cblk",
 				"unifier"	: "=",
@@ -41,7 +44,7 @@
 				"format"	: "pair"
 			}
 		],
-		"precincts": [
+		"@precincts": [
 			{
 				"flag"		: "Cprecincts",
 				"unifier"	: "=",
@@ -59,7 +62,7 @@
 				}
 			}
 		],
-		"mode": [
+		"@mode": [
 			{
 				"flag"		: "Cmodes",
 				"unifier"	: "=",
@@ -85,7 +88,7 @@
 				}
 			}
 		],
-		"compression": [
+		"@compression": [
 			{
 				"flag"			: "Creversible",
 				"unifier"		: "=",

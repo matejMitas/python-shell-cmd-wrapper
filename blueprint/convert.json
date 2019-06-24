@@ -1,24 +1,36 @@
 {
+	"settings": {
+		"required_flags": [
+			"@input", "@output"
+		]
+	},
 	"flags": {
-		"_input": [
+		"@input": [
 			{
-				"opt"		: null,
+				"flag"		: null,
 				"unifier"	: null,
 				"format"	: "single"
 			}
 		],
-		"_output": [
+		"@output": [
 			{
-				"opt"		: null,
+				"flag"		: null,
 				"unifier"	: null,
 				"format"	: "single"
 			}
 		],
-		"resize": [
+		"@resize": [
 			{
-				"opt"		: "-resize",
+				"flag"		: "-resize",
 				"unifier"	: "=",
-				"format"	: "pair_braces"
+				"format"	: "single" 
+			}
+		],
+		"@colorspace": [
+			{
+				"flag"		: "-colorspace",
+				"unifier"	: "=",
+				"format"	: "single"
 			}
 		]
 	}

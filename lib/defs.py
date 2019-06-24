@@ -19,12 +19,16 @@ GENERAL_SCHEMA = {
 	'$schema'				: 'http://json-schema.org/schema#',
 	'type'					: 'object',
 	'additionalProperties'	: False,
-	'required'				: ['flags'],
+	'required'				: ['settings', 'flags'],
 	'properties'			: {
 		'settings' : {
 			'type' 		 : 'object',
-			'required'	 : ['libraries'],
+			'additionalProperties'	: False,
+			'required'	 : ['required_flags'],
 			'properties' : {
+				'required_flags': {
+					'type': 'array'
+				},
 				'libraries': {
 					'type'	: 'array'
 				}

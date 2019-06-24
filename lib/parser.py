@@ -36,7 +36,8 @@ class Parser:
 					is present on root level otherwise 
 					"""
 					self.no_of_libraries = 1
-					if 'settings' in self.blueprint_file:
+
+					if 'libraries' in self.blueprint_file['settings']:
 						self.no_of_libraries = len(self.blueprint_file['settings']['libraries'])
 
 					if self._check_blueprint():

@@ -1,6 +1,11 @@
 {
+	"settings": {
+		"required_flags": [
+			"@output"
+		]
+	},
 	"flags": {
-		"_output": [
+		"@output": [
 			{
 				"flag"		: "--output-document",
 				"unifier"	: "=",
