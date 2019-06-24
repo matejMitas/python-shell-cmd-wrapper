@@ -113,14 +113,18 @@ class Parser:
 		"""
 		for flag_key, flag_value in self.data['flags'].items():
 			if len(flag_value) != self.no_of_libraries:
-				print('no')
-				return False
+				raise ValueError('Supplied number of libraries {} does not match all listed variants for \'{}\''.format(self.no_of_libraries, flag_key))
 
 			for flag in flag_value:
-				try:
-					js.validate(instance=flag, schema=defs.FLAG_SCHEMA)
-				except js.exceptions.ValidationError as expt:
-					print(expt)
+				"""
+				Sometimes one might want to omit partical library's flag, while doing so supplied
+				empty object is not valid according to the schema so it's skipped
+				"""
+				if flag:
+					try:
+						js.validate(instance=flag, schema=defs.FLAG_SCHEMA)
+					except js.exceptions.ValidationError as expt:
+						print(expt)
 		return True
 
 	def _check_routine(self):

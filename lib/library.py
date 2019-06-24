@@ -150,7 +150,7 @@ class Library:
 
 
 	def _transform_opts(self, opts_blueprint, opts):
-		pass
+		print(opts_blueprint)
 
 
 
