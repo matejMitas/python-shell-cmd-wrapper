@@ -122,8 +122,35 @@ class Library:
 		Take input flag and transform it to the desired format
 		described in blueprint
 		"""
-		print(flag_blueprint, opts)
+		transform_buffer 		= []
+		"""
+		Mandatory parts of blueprint as local variable for 
+		more readable code
+		"""
+		flag 		= flag_blueprint['flag']
+		unifier 	= flag_blueprint['unifier']
+		opt_format 	= flag_blueprint['format'] 
+		"""
+		Handle opt
+		"""
 
+
+		"""
+		Handle flag
+		"""
+		if flag:
+			transform_buffer.append(flag)
+
+		"""
+		Handle unifier
+		"""
+		self._transform_opts(flag_blueprint['format'], opts)
+
+		return transform_buffer
+
+
+	def _transform_opts(self, opts_blueprint, opts):
+		pass
 
 
 

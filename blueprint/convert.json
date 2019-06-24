@@ -22,7 +22,7 @@
 		"resize": [
 			{
 				"flag"		: "-resize",
-				"unifier"	: "=",
+				"unifier"	: null,
 				"format"	: "single" 
 			}
 		],

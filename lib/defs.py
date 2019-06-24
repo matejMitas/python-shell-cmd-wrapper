@@ -51,29 +51,52 @@ GENERAL_SCHEMA = {
 Flag schema
 """
 FLAG_SCHEMA = {
-	'type': 'object',
-	'required': ['flag', 'unifier', 'format'],
-	'additionalProperties'	: False,
-	'properties': {
-		'flag': {
-			'type'		: ['null', 'string']
-		}, 
-		'unifier': {
-			'type'		: ['null', 'string']
-		},
-		'format': {
-			'type'		: 'string',
-			'pattern'	: '|'.join(['({})'.format(i) for i in list(FORMAT_OPTIONS.keys())])
-		},
-		'list': {
-			'type'		: 'object',
-			'properties': {
-				'divider': {
-					'type': 'string'
-				}
-			}
-		},
-		'match': {},
-		'toggle': {}
+	'type':'object',
+	'required':[  
+	    'flag',
+	    'unifier',
+	    'format'
+	],
+	'additionalProperties':False,
+	'properties':{  
+	    'flag':{  
+	        'type':[  
+	            'null',
+	            'string'
+	        ]
+	    },
+	    'unifier':{  
+	        'type':[  
+	            'null',
+	            'string'
+	        ]
+	    },
+	    'format':{  
+	        'type':'object',
+	        'dependencies': {
+			    'match': ['pattern']
+			},
+	        'properties':{  
+	            'format':{  
+	                'type':'string',
+	                'pattern':'|'.join(['({})'.format(i) for i in list(FORMAT_OPTIONS.keys())])
+	            },
+	            'list':{  
+	                'type':'object',
+	                'properties':{  
+	                    'divider':{  
+	                        'type':'string'
+	                    }
+	                }
+	            },
+	            'pattern': {},
+	            'match': {
+	            	'type': 'boolean'
+	            },
+	            'toggle': {
+	            	'type': 'boolean'
+	            }
+	        }
+	    }
 	}
 }

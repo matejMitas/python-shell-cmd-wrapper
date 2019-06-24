@@ -12,53 +12,69 @@
 			{
 				"flag"		: "-i",
 				"unifier"	: null,
-				"format"	: "single"
+				"format"	: {
+					"type":	"single"
+				}
 			},
 			{
 				"flag"		: "-i",
 				"unifier"	: null,
-				"format"	: "single"
+				"format"	: {
+					"type":	"single"
+				}
 			}
 		],
 		"output": [
 			{
 				"flag"		: "-o",
 				"unifier"	: null,
-				"format"	: "single"
+				"format"	: {
+					"type":	"single"
+				}
 			},
 			{
 				"flag"		: "-o",
 				"unifier"	: null,
-				"format"	: "single"
+				"format"	: {
+					"type":	"single"
+				}
 			}
 		],
 		"blocks": [
 			{
 				"flag"		: "Cblk",
 				"unifier"	: "=",
-				"format"	: "pair_braces"
+				"format"	: {
+					"type":	"pair_braces"
+				}
 			},
 			{
 				"flag"		: "-b",
 				"unifier"	: null,
-				"format"	: "pair"
+				"format"	: {
+					"type":	"pair"
+				}
 			}
 		],
 		"precincts": [
 			{
 				"flag"		: "Cprecincts",
 				"unifier"	: "=",
-				"format"	: "pair_braces",
-				"list"		: {
-					"divider": ","
+				"format"	: {
+					"type":	"pair_braces",
+					"list"		: {
+						"divider": ","
+					}
 				}
 			},
 			{
 				"flag"		: "-c",
 				"unifier"	: null,
-				"format"	: "pair_box",
-				"list"		: {
-					"divider": ","
+				"format"	: {
+					"type":	"pair_box",
+					"list"		: {
+						"divider": ","
+					}
 				}
 			}
 		],
@@ -66,16 +82,19 @@
 			{
 				"flag"		: "Cmodes",
 				"unifier"	: "=",
-				"format" 	: "single",
-				"list"		: {
-					"divider": "|"
+				"format"	: {
+					"type":	"single",
+					"list"		: {
+						"divider": "|"
+					}
 				}
 			},
 			{
 				"flag"		: "-M",
 				"unifier"	: null,
-				"format"	: "match",
-				"match"		: {
+				"format"	: {
+					"type":	"single",
+					"match": true,
 					"pattern": {
 						"BYPASS"	: 1,
 						"RESET"		: 2, 
@@ -92,8 +111,9 @@
 			{
 				"flag"			: "Creversible",
 				"unifier"		: "=",
-				"format"		: "match",
-				"match": {
+				"format"		: {
+					"type":	"single",
+					"match": true,
 					"pattern": {
 						"lossy"		: "no",
 						"lossless"	: "yes"
@@ -103,11 +123,23 @@
 			{
 				"flag"			: "-I",
 				"unifier"		: null,
-				"format"		: "toggle",
-				"toggle": {
+				"format"		: {
+					"type":	null,
+					"toggle": true,
 					"pattern": ["lossless", "lossy"]
 				}
 			}
+		],
+		"inline_rgb_420": [
+			{
+				"flag"			: "-rgb_to_420",
+				"unifier"		: null,
+				"format"		: {
+					"type":	null,
+					"toggle": true
+				}
+			},
+			{}
 		]
 	}
 }

@@ -5,21 +5,24 @@ from lib.library import Library
 # compress_lib.set_fixed()
 # compress_lib.construct()
 
-convert_lib = Library(blueprint='convert', reset_after_construct=True)
+convert_lib = Library(
+	blueprint='compress_libs', 
+	lib='kdu_compress', 
+	reset_after_construct=True
+)
 """
 Set fixed parameters
 """
 convert_lib.set_fixed(
 	input='./tests/output.ppm', 
 	output='./tests/output2.ppm', 
-	colorspace='rgb'
+	blocks=[128, 64],
+	precincts=[[128, 128], [64, 64]]
 )
 """
 Set variable parameters
 """
-convert_lib.set_variable(
-	resize=[10, 20, 50, 70, 90]
-)
+convert_lib.set_variable()
 """
 Set variable parameters
 """
