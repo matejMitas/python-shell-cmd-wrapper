@@ -17,7 +17,8 @@ convert_lib.set_fixed(
 	input='./tests/output.ppm', 
 	output='./tests/output2.ppm', 
 	blocks=[128, 64],
-	precincts=[[128, 128], [64, 64]]
+	precincts=[[128, 128], [64, 64]],
+	compression="lossy"
 )
 """
 Set variable parameters

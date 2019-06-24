@@ -11,13 +11,13 @@ ROUTINES_PATH 	= './{}'.format(ROUTINE)
 
 
 FORMAT_OPTIONS = {
-	'single'		: '{}',
-	'pair'			: '{},{}',
-	'pair_braces'	: '{{{},{}}}',
-	'pair_box'		: '[{},{}]',
-	'match'			: None,
-	'toggle'		: None	
+	'1'				: '{}',
+	'2,'			: '{},{}',
+	'{2,}'			: '{{{},{}}}',
+	'[2,]'			: '[{},{}]',
+	'(2,)'			: '({},{})'
 }
+
 
 """
 General flags blueprint 
@@ -77,12 +77,13 @@ FLAG_SCHEMA = {
 			    'match': ['pattern']
 			},
 	        'properties':{  
-	            'format':{  
-	                'type':'string',
-	                'pattern':'|'.join(['({})'.format(i) for i in list(FORMAT_OPTIONS.keys())])
+	            'preset':{  
+	                'type': ['null', 'string'],
+	                'pattern': '(1)|(2,)|((2,))|([2,])|({{2,}})'
 	            },
 	            'list':{  
 	                'type':'object',
+	                'required'	 : ['divider'],
 	                'properties':{  
 	                    'divider':{  
 	                        'type':'string'

@@ -62,10 +62,16 @@ class Library:
 		"""
 		output_buffer = []
 		"""
-		Add constant flags and items
+		Add command
 		"""
 		output_buffer += [self.lib_name if self.lib_name else self.blueprint_name]
+		"""
+		Add fixed
+		"""
+		output_buffer += self.structure['fixed']['transformed']
 		
+		print(output_buffer)
+
 		return {
 			'index': 0,
 			'items': []
@@ -87,7 +93,8 @@ class Library:
 			transform flag accordingly 
 			"""
 			flag_blueprint = self._match_flag(flag)
-			self._transform_flag(flag_blueprint, opts)
+			self.structure['fixed']['transformed'] += self._transform_flag(flag_blueprint, opts)
+
 
 	def set_variable(self, **kwargs):
 		pass
@@ -131,31 +138,44 @@ class Library:
 		unifier 	= flag_blueprint['unifier']
 		opt_format 	= flag_blueprint['format'] 
 		"""
-		Handle opt
+		Opts are the most important part of the transformation because
+		they need to put into the right format or even concatenated to
+		a list hence they are first to address
 		"""
+		if 'list' in flag_blueprint['format']:
+			transformed_opt = None
+		else:
+			transformed_opt = self._transform_opts(flag_blueprint['format'], opts)
 
 
-		"""
-		Handle flag
-		"""
-		if flag:
-			transform_buffer.append(flag)
-
-		"""
-		Handle unifier
-		"""
-		self._transform_opts(flag_blueprint['format'], opts)
-
+		if transformed_opt:
+			"""
+			Handle unifier
+			"""		
+			if unifier:
+				transform_buffer.append('{}{}{}'.format(flag, unifier, transformed_opt))
+			else:
+				"""
+				Handle flag
+				"""
+				if flag:
+					transform_buffer.append(flag)
+				transform_buffer.append(transformed_opt)
+		
 		return transform_buffer
 
 
 	def _transform_opts(self, opts_blueprint, opts):
-		print(opts_blueprint)
+		opts_preset = opts_blueprint['preset']
 
+		if opts_preset == '1':
+			return opts
 
+		# print(opts_blueprint)
+		# print(opts)
 
-	def _format_flag(self, flag):
-		return '@{}'.format(flag) 
+	def _transform_opts_list(self, opts_blueprint, opts):
+		pass
 
 	def _match_flag(self, flag):
 		"""
