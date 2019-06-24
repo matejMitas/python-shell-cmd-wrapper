@@ -92,11 +92,18 @@ class Library:
 		parser = Parser('blueprint', self.blueprint_name, self.lib_name)
 		if not parser.parse():
 			return False
-
+		"""
+		If there are multiple libraries in blueprint correct index of 
+		library must be found to later enable addressing of flag opts
+		"""
 		self.program_indexes = parser.get_libraries()
 		if not self.program_indexes:
-			raise IndexError()
-
+			self.blueprint_index = 0
+		else:
+			self.blueprint_index = self.program_indexes.index(self.lib_name)
+		"""
+		Get all flags/opts from file
+		"""
 		self.flags_match_table = parser.get_flags()
 		if not self.flags_match_table:
 			raise ValueError()

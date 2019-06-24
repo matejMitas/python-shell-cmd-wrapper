@@ -5,7 +5,7 @@ from lib.library import Library
 # compress_lib.set_fixed()
 # compress_lib.construct()
 
-convert_lib = Library(blueprint='compress_libs', lib='convert', reset_after_construct=True)
+convert_lib = Library(blueprint='convert', reset_after_construct=True)
 """
 Set fixed parameters
 """
