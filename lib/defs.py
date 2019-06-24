@@ -3,6 +3,8 @@ Definitions used throught the program.
 """
 
 BLUEPRINTS_PATH = './blueprint'
+ROUTINES_PATH 	= './routine'
+
 FORMAT_OPTIONS = {
 	'single'		: '{}',
 	'pair'			: '{},{}',

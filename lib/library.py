@@ -69,18 +69,14 @@ class Library:
 		Add constant flags and items
 		"""
 		output_buffer += [self.lib_name if self.lib_name else self.blueprint_name]
-		output_buffer += self._generate_io()
 		
 		return {
 			'index': 0,
 			'items': []
 		}
 
-	def set_io(self, input_file=None, output_file=None):
-		if input_file:
-			self.structure['io']['input'] = input_file
-		if output_file:
-			self.structure['io']['output'] = output_file
+	def set_from_routine(self, json_file):
+		pass
 
 	def set_fixed(self, **kwargs):
 		pass
@@ -92,15 +88,25 @@ class Library:
 	PRIVATE methods
 	"""
 	def _generate_io(self):
-		return ['-i', self.structure['io']['input'], '-o', self.structure['io']['output']]
+		return [self.structure['io']['input'], self.structure['io']['output']]
 
 	def _get_blueprint(self):
-
 		parser = Parser(self.blueprint_name)
 		if not parser.parse():
 			return 
 
-		print(parser.get_libraries())
-		print(parser.get_flags())
+		if parser.get_libraries():
+			self.program_indexes = list(defs.LIBS.values())
 
-		#print(self.blueprint_name)
+		self.flags_match_table = parser.get_flags()
+
+	def _transform_flag(self, opts):
+		"""
+		Take input flag and transform it to the desired format
+		described in blueprint
+		"""
+
+	def _match_flag(self, flag):
+		"""
+		Find correct flag options in blueprint
+		"""
