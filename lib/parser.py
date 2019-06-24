@@ -19,10 +19,6 @@ import lib.utils 	as utils
 class Parser:
 	def __init__(self, blueprint_name):
 		self.blueprint_name = blueprint_name
-
-		self.nesting_level = -1
-		self.nest_key = None
-		self.levels = []
 	
 	"""
 	PUBLIC methods
