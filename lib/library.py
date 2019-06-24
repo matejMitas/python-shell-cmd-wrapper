@@ -77,10 +77,17 @@ class Library:
 		pass
 
 	def set_fixed(self, **kwargs):
-		for flag, opt in kwargs.items():
-			print(flag, opt)
-			print(self._match_flag(flag))
-			print()
+		for flag, opts in kwargs.items():
+			"""
+			Backup for possible repeated use
+			"""
+			self.structure['fixed']['original'][flag] = opts
+			"""
+			Find corresponding partition of the blueprint and 
+			transform flag accordingly 
+			"""
+			flag_blueprint = self._match_flag(flag)
+			self._transform_flag(flag_blueprint, opts)
 
 	def set_variable(self, **kwargs):
 		pass
@@ -110,17 +117,25 @@ class Library:
 
 		return True
 
-	def _transform_flag(self, opts):
+	def _transform_flag(self, flag_blueprint, opts):
 		"""
 		Take input flag and transform it to the desired format
 		described in blueprint
 		"""
+		print(flag_blueprint, opts)
+
+
+
+
+	def _format_flag(self, flag):
+		return '@{}'.format(flag) 
 
 	def _match_flag(self, flag):
 		"""
 		Find correct flag options in blueprint
 		"""
-		full_flag = '@{}'.format(flag)
-		print(full_flag)
-		print(self.flags_match_table[full_flag][0])
+		try:
+			return self.flags_match_table[flag][self.blueprint_index]
+		except KeyError:
+			raise KeyError('flag \'{}\' is not available in current blueprint. You can either try different blueprint or create new one'.format(flag))
 		

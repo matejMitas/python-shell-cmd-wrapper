@@ -1,32 +1,32 @@
 {
 	"settings": {
 		"required_flags": [
-			"@input", "@output"
+			"input", "output"
 		]
 	},
 	"flags": {
-		"@input": [
+		"input": [
 			{
 				"flag"		: null,
 				"unifier"	: null,
 				"format"	: "single"
 			}
 		],
-		"@output": [
+		"output": [
 			{
 				"flag"		: null,
 				"unifier"	: null,
 				"format"	: "single"
 			}
 		],
-		"@resize": [
+		"resize": [
 			{
 				"flag"		: "-resize",
 				"unifier"	: "=",
 				"format"	: "single" 
 			}
 		],
-		"@colorspace": [
+		"colorspace": [
 			{
 				"flag"		: "-colorspace",
 				"unifier"	: "=",

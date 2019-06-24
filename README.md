@@ -84,7 +84,7 @@ Base usage
 ------------------
 ### `Lib` class
 
-Firstly, let's look onto basic usage with predefined library (Imagemagick `convert`). `Lib` is main class of package wrapping functionality. `blueprint` refers to json file in `./blueprint`.
+Let's firstly look onto basic usage with predefined library (Imagemagick `convert`). `Lib` is main class of package wrapping functionality. `blueprint` refers to json file in `./blueprint`.
 
 ```python
 convert_lib = Lib(
@@ -103,6 +103,8 @@ compress = Lib(
 
 Adding flags
 ------------
+Setting fixed flags is advised to only once per each construction (if `reset_after_construct` is `True`) because once this method is invoked it automatically transforms all flags and stores them internally for faster construction. Repeated use might raise performance concerns for large number of flags.
+
 ```python
 convert_lib.set_fixed(
 	colorspace='rgb'
