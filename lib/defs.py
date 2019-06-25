@@ -23,7 +23,6 @@ FORMAT_OPTIONS = {
 General flags blueprint 
 """
 GENERAL_SCHEMA = {
-	'$schema'				: 'http://json-schema.org/schema#',
 	'type'					: 'object',
 	'additionalProperties'	: False,
 	'required'				: ['settings', 'flags'],

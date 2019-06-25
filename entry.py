@@ -27,4 +27,4 @@ convert_lib.set_variable()
 """
 Set variable parameters
 """
-convert_lib.construct()
+print(convert_lib.construct())

@@ -70,12 +70,7 @@ class Library:
 		"""
 		output_buffer += self.structure['fixed']['transformed']
 		
-		print(output_buffer)
-
-		return {
-			'index': 0,
-			'items': []
-		}
+		return output_buffer
 
 	def set_from_routine(self, routine_file):
 		parser = Parser('routine', routine_file)
@@ -170,6 +165,9 @@ class Library:
 
 		if opts_preset == '1':
 			return opts
+		elif opts_preset == '{2,}':
+			return defs.FORMAT_OPTIONS[opts_preset].format(opts[0], opts[1])
+
 
 		# print(opts_blueprint)
 		# print(opts)
