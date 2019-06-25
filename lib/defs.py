@@ -77,7 +77,7 @@ FLAG_SCHEMA = {
 			},
 	        'properties':{  
 	            'preset':{  
-	                'type': ['null', 'string'],
+	                'type': ['null', 'string', 'object'],
 	                'pattern': '(1)|(2,)|((2,))|([2,])|({{2,}})'
 	            },
 	            'list':{  

@@ -162,11 +162,16 @@ class Library:
 
 	def _transform_opts(self, opts_blueprint, opts):
 		opts_preset = opts_blueprint['preset']
+		opts_preset_type = type(opts_preset)
 
-		if opts_preset == '1':
-			return opts
-		elif opts_preset == '{2,}':
-			return defs.FORMAT_OPTIONS[opts_preset].format(opts[0], opts[1])
+		if opts_preset_type == str:
+			if opts_preset == '1':
+				return opts
+			else:
+				return defs.FORMAT_OPTIONS[opts_preset].format(opts[0], opts[1])
+		elif opts_preset_type == dict:
+			print(opts_preset)
+			return '{}{}{}{}{}'.format(opts_preset['left'], opts[0], opts_preset['divider'], opts[1], opts_preset['right'])
 
 
 		# print(opts_blueprint)

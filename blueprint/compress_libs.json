@@ -46,7 +46,12 @@
 				"flag"		: "Cblk",
 				"unifier"	: "=",
 				"format"	: {
-					"preset":	"{2,}"
+					"preset": {
+						"count": 2,
+						"left": "?",
+						"divider": "-",
+						"right": ">"
+					}
 				}
 			},
 			{
