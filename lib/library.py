@@ -92,11 +92,64 @@ class Library:
 
 
 	def set_variable(self, **kwargs):
-		pass
+		for flag, opts in kwargs.items():
+			flag_blueprint = self._match_flag(flag)
+			"""
+			First thing to decide is whenever single or more values
+			were supplied
+			"""
+			items_count = flag_blueprint['format']['count']
+			"""
+			Check for easiest case, only one primitive value 
+			"""
+			if self._is_primitive(opts):
+				print(self._transform_flag(flag_blueprint, opts))
+			else:
+				"""
+				Tuple is single value, list means more expansion.
+				But tuple can be nested.
+				"""
+				if type(opts) == tuple:
+					"""
+					Nested tuple, flag with list option
+					"""
+					if type(opts[0]) == tuple:
+						"""
+						TODO: address list in next version
+						"""
+						pass
+					else:
+						print(self._transform_flag(flag_blueprint, opts))
+				else:
+					for opt in opts:
+						print(self._transform_flag(flag_blueprint, opt))
+
+			print()
+			
+			
+
+
 
 	"""
 	PRIVATE methods
 	"""
+	def _set_variable_single(self, flag_blueprint, opts):
+		if items_count > 1:
+				"""
+				Multiple values, can be in nested list
+				"""
+				print('multiple')
+
+		else:
+			"""
+			Value is primitive data type, assign can take place
+			"""
+			pass
+			#print(opts)
+			#print(self._transform_flag(flag_blueprint, opts))
+			#print('single')
+
+
 	def _get_blueprint(self):
 		parser = Parser('blueprint', self.blueprint_name, self.lib_name)
 		if not parser.parse():
@@ -131,7 +184,7 @@ class Library:
 		"""
 		flag 		= flag_blueprint['flag']
 		unifier 	= flag_blueprint['unifier']
-		opt_format 	= flag_blueprint['format'] 
+		opt_format 	= flag_blueprint['format']
 		"""
 		Opts are the most important part of the transformation because
 		they need to put into the right format or even concatenated to
@@ -164,12 +217,19 @@ class Library:
 		opts_preset = opts_blueprint['preset']
 		opts_preset_type = type(opts_preset)
 
+		
 		if opts_preset_type == str:
+			"""
+			String means matching of predefined presets
+			"""
 			if opts_preset == '1':
 				return opts
 			else:
 				return defs.FORMAT_OPTIONS[opts_preset].format(opts[0], opts[1])
 		elif opts_preset_type == dict:
+			"""
+			Custom formating is also enabled, setting divider/left & right side of expression
+			"""
 			print(opts_preset)
 			return '{}{}{}{}{}'.format(opts_preset['left'], opts[0], opts_preset['divider'], opts[1], opts_preset['right'])
 
@@ -188,4 +248,10 @@ class Library:
 			return self.flags_match_table[flag][self.blueprint_index]
 		except KeyError:
 			raise KeyError('flag \'{}\' is not available in current blueprint. You can either try different blueprint or create new one'.format(flag))
-		
+
+	def _is_primitive(self, item):
+		if type(item) not in [list, tuple, dict]:
+			return True
+		else:
+			return False
+			
