@@ -33,7 +33,7 @@ class Library:
 		"""
 		self.structure = {
 			'fixed'		: {
-				'original'		: {},
+				'already_set'	: [],
 				'transformed'	: []
 			},
 			'variable'	: {
@@ -80,11 +80,13 @@ class Library:
 	def set_fixed(self, **kwargs):
 		for flag, opts in kwargs.items():
 			"""
-			Backup for possible repeated use
+			Setting a flag is only allowed once
 			"""
-			self.structure['fixed']['original'][flag] = opts
-
-			print(flag)
+			already_set = self.structure['fixed']['already_set']
+			if flag in already_set:
+				raise ValueError('Flag \'{}\' is already set, fixed flags can only be set once.'.format(flag))
+			else:
+				already_set.append(flag)
 			"""
 			Find corresponding partition of the blueprint and 
 			transform flag accordingly 
