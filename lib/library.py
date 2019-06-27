@@ -79,8 +79,9 @@ class Library:
 		"""
 		Add variable
 		"""
-		self._add_variable()
-
+		variables = self._add_variable()
+		for var in variables:
+			yield output_buffer + var
 
 		"""
 		Cleanup after construction
@@ -149,19 +150,14 @@ class Library:
 			flag_store.append(payload)
 
 	def _add_variable(self):
+		ret_opts = []
 		for flag, opts_list in self.structure['variable'].items():
-
 			flag_blueprint = self._match_flag(flag)
-			print(flag_blueprint)
 
 			for opts in opts_list:
-				print(self._transform_flag(flag_blueprint, opts))
+				ret_opts.append(self._transform_flag(flag_blueprint, opts))
 
-			print()
-
-		print()
-
-
+		return ret_opts
 
 
 	def _set_variable_single(self, flag_blueprint, opts):

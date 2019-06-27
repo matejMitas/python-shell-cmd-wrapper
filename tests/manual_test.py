@@ -50,7 +50,5 @@ convert_lib.set_variable(tiles=(432, 765))
 """
 Set variable parameters
 """
-print(convert_lib.construct())
-
-a = [6]
-b = (2,5)
+for variant in convert_lib.construct():
+	print(variant)
