@@ -55,3 +55,6 @@ convert_lib.set_variable(precincts=((432, 765), (50,50)))
 Set variable parameters
 """
 print(convert_lib.construct())
+
+a = [6]
+b = (2,5)

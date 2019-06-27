@@ -40,10 +40,7 @@ class Library:
 				'already_set'	: [],
 				'transformed'	: []
 			},
-			'variable'	: {
-				'original'		: {},
-				'transformed'	: {}
-			}
+			'variable'	: {}
 		}
 
 		"""
@@ -109,39 +106,25 @@ class Library:
 
 	def set_variable(self, **kwargs):
 		for flag, opts in kwargs.items():
-			flag_blueprint = self._match_flag(flag)
 			"""
-			First thing to decide is whenever single or more values
-			were supplied
+			Check if flag is defined
 			"""
-			items_count = flag_blueprint['format']['count']
+			self._match_flag(flag)
 			"""
-			Check for easiest case, only one primitive value 
+			Store flag opts
 			"""
-			if self._is_primitive(opts):
-				self._transform_flag(flag_blueprint, opts)
-			else:
-				"""
-				Array is single value, list means more expansion.
-				But arrays can be nested.
-				"""
-				if self._is_array(opts):
-					"""
-					Nested array, flag with list option
-					"""
-					if type(opts[0]) == self._is_array(opts):
-						"""
-						TODO: address list in next version
-						"""
-						pass
-					else:
-						self._transform_flag(flag_blueprint, opts)
-				else:
-					for opt in opts:
-						self._transform_flag(flag_blueprint, opt)
 
-			#print()
+			print(flag)
 			
+			try:
+				self._add_variable(flag, opts)
+			except KeyError:
+				self.structure['variable'][flag] = []
+				self._add_variable(flag, opts)
+
+
+		print(self.structure['variable'])
+		print()
 			
 
 
@@ -149,7 +132,48 @@ class Library:
 	"""
 	PRIVATE methods
 	"""
+	def _add_variable(self, flag, payload):
+		flag_store = self.structure['variable'][flag]
+
+		if isinstance(payload, list):
+			flag_store += payload
+		else:
+			flag_store.append(payload)
+
 	def _set_variable_single(self, flag_blueprint, opts):
+		flag_blueprint = self._match_flag(flag)
+		"""
+		First thing to decide is whenever single or more values
+		were supplied
+		"""
+		items_count = flag_blueprint['format']['count']
+
+		"""
+		Check for easiest case, only one primitive value 
+		"""
+		if self._is_primitive(opts):
+			print(self._transform_flag(flag_blueprint, opts))
+		else:
+			"""
+			Array is single value, list means more expansion.
+			But arrays can be nested.
+			"""
+			if self._is_array(opts):
+				"""
+				Nested array, flag with list option
+				"""
+				if type(opts[0]) == self._is_array(opts):
+					"""
+					TODO: address list in next version
+					"""
+					pass
+				else:
+					self._transform_flag(flag_blueprint, opts)
+			else:
+				for opt in opts:
+					self._transform_flag(flag_blueprint, opt)
+
+
 		if items_count > 1:
 				"""
 				Multiple values, can be in nested list
