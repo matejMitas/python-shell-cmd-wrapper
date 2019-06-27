@@ -25,9 +25,13 @@ class Library:
 		self.blueprint_name = blueprint
 		self.lib_name = lib
 		"""
-		Fixed flags can only be set once 
+		Library life cycle can altered to resetting after
+		each call of 'construct' method
 		"""
-		self.fixed_set = False
+		try:
+			self.reset_after_construct = kwargs['reset_after_construct']
+		except KeyError:
+			self.reset_after_construct = True
 		"""
 		Internal structure for storing flags
 		"""
