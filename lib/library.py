@@ -47,6 +47,10 @@ class Library:
 		"""
 		self._get_blueprint()
 
+		print(self._is_primitive(5))
+		print(self._is_primitive(()))
+		print()
+
 	"""
 	PUBLIC methods
 	"""
@@ -83,6 +87,8 @@ class Library:
 			Backup for possible repeated use
 			"""
 			self.structure['fixed']['original'][flag] = opts
+
+			print(flag)
 			"""
 			Find corresponding partition of the blueprint and 
 			transform flag accordingly 
@@ -103,7 +109,7 @@ class Library:
 			Check for easiest case, only one primitive value 
 			"""
 			if self._is_primitive(opts):
-				print(self._transform_flag(flag_blueprint, opts))
+				self._transform_flag(flag_blueprint, opts)
 			else:
 				"""
 				Tuple is single value, list means more expansion.
@@ -119,10 +125,10 @@ class Library:
 						"""
 						pass
 					else:
-						print(self._transform_flag(flag_blueprint, opts))
+						self._transform_flag(flag_blueprint, opts)
 				else:
 					for opt in opts:
-						print(self._transform_flag(flag_blueprint, opt))
+						self._transform_flag(flag_blueprint, opt)
 
 			print()
 			
@@ -249,9 +255,16 @@ class Library:
 		except KeyError:
 			raise KeyError('flag \'{}\' is not available in current blueprint. You can either try different blueprint or create new one'.format(flag))
 
+	def _is_array(self, item):
+		accepted_types = [list, tuple]
+		for accepted_type in accepted_types:
+			if isinstance(item, accepted_type):
+				return True
+		return False
+
 	def _is_primitive(self, item):
-		if type(item) not in [list, tuple, dict]:
-			return True
-		else:
-			return False
-			
+		rejected_types = [list, tuple, set, dict]
+		for rejected_type in rejected_types:
+			if isinstance(item, rejected_type):
+				return False
+		return True
