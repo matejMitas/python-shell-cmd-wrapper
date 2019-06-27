@@ -1,4 +1,5 @@
 from lib.library import Library
+import sys
 
 # compress_lib = Library('compress_libs', 'kdu_compress')
 # compress_lib.set_io('file1.ppm', 'file2.jp2')
@@ -53,5 +54,4 @@ convert_lib.set_variable(precincts=((432, 765), (50,50)))
 """
 Set variable parameters
 """
-print()
 print(convert_lib.construct())

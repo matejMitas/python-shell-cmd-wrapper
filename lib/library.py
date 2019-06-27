@@ -140,7 +140,7 @@ class Library:
 					for opt in opts:
 						self._transform_flag(flag_blueprint, opt)
 
-			print()
+			#print()
 			
 			
 
@@ -154,7 +154,8 @@ class Library:
 				"""
 				Multiple values, can be in nested list
 				"""
-				print('multiple')
+				pass
+				#print('multiple')
 
 		else:
 			"""
