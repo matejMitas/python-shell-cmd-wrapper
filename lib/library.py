@@ -73,6 +73,14 @@ class Library:
 		Add fixed
 		"""
 		output_buffer += self.structure['fixed']['transformed']
+
+
+		"""
+		Cleanup after construction
+		"""
+		if self.reset_after_construct:
+			self.structure['fixed']['already_set'] = []
+			self.structure['fixed']['transformed'] = []
 		
 		return output_buffer
 

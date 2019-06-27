@@ -5,8 +5,8 @@ Definitions used throught the program.
 BLUEPRINT = 'blueprint'
 ROUTINE = 'routine'
 
-BLUEPRINTS_PATH = './{}'.format(BLUEPRINT)
-ROUTINES_PATH 	= './{}'.format(ROUTINE)
+BLUEPRINTS_PATH = './lib/{}'.format(BLUEPRINT)
+ROUTINES_PATH 	= './lib/{}'.format(ROUTINE)
 
 
 
