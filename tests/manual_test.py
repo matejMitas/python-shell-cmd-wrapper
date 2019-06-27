@@ -29,28 +29,24 @@ convert_lib.set_variable(
 		(477,997), 
 		(450, 1097)
 	],
-	precincts=[
-		(
-			(128,128), (432, 765)
-		), 
-		(
-			(477,997), (450, 1097)
-		)
-	],
-	output=[
-		'out_1.ppm', 
-		'out_2.ppm', 
-		'out_3.ppm', 
-		'out_4.ppm'
-	]
+	# precincts=[
+	# 	(
+	# 		(128,128), (432, 765)
+	# 	), 
+	# 	(
+	# 		(477,997), (450, 1097)
+	# 	)
+	# ],
+	# output=[
+	# 	'out_1.ppm', 
+	# 	'out_2.ppm', 
+	# 	'out_3.ppm', 
+	# 	'out_4.ppm'
+	# ]
 )
 
-convert_lib.set_variable(output='out_1.ppm')
+#convert_lib.set_variable(output='out_1.ppm')
 convert_lib.set_variable(tiles=(432, 765))
-convert_lib.set_variable(precincts=((432, 765), (50,50)))
-
-# convert_lib.set_variable(tiles=[477,997])
-# convert_lib.set_variable(tiles=[450, 1097])
 """
 Set variable parameters
 """

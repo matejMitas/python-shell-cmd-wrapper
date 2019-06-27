@@ -44,6 +44,12 @@ class Library:
 		}
 
 		"""
+		TODO: this variable is not needed for multiple variable 
+		flags but this version only support 1
+		"""
+		self.is_variable_set = False
+
+		"""
 		Fetch correct blueprint for command 
 		"""
 		self._get_blueprint()
@@ -70,6 +76,10 @@ class Library:
 		Add fixed
 		"""
 		output_buffer += self.structure['fixed']['transformed']
+		"""
+		Add variable
+		"""
+		self._add_variable()
 
 
 		"""
@@ -107,38 +117,52 @@ class Library:
 	def set_variable(self, **kwargs):
 		for flag, opts in kwargs.items():
 			"""
-			Check if flag is defined
+			Support only for one variable flag
 			"""
-			self._match_flag(flag)
-			"""
-			Store flag opts
-			"""
+			if not self.is_variable_set or self.is_variable_set == flag:
 
-			print(flag)
-			
-			try:
-				self._add_variable(flag, opts)
-			except KeyError:
-				self.structure['variable'][flag] = []
-				self._add_variable(flag, opts)
-
-
-		print(self.structure['variable'])
-		print()
-			
-
-
+				self.is_variable_set = 'tiles'
+				"""
+				Check if flag is defined
+				"""
+				self._match_flag(flag)
+				"""
+				Store flag opts
+				"""
+				try:
+					self._store_variable(flag, opts)
+				except KeyError:
+					self.structure['variable'][flag] = []
+					self._store_variable(flag, opts)
+			else:
+				raise IndexError('This version only support one variable flag.')
 
 	"""
 	PRIVATE methods
 	"""
-	def _add_variable(self, flag, payload):
+	def _store_variable(self, flag, payload):
 		flag_store = self.structure['variable'][flag]
 
 		if isinstance(payload, list):
 			flag_store += payload
 		else:
 			flag_store.append(payload)
+
+	def _add_variable(self):
+		for flag, opts_list in self.structure['variable'].items():
+
+			flag_blueprint = self._match_flag(flag)
+			print(flag_blueprint)
+
+			for opts in opts_list:
+				print(self._transform_flag(flag_blueprint, opts))
+
+			print()
+
+		print()
+
+
+
 
 	def _set_variable_single(self, flag_blueprint, opts):
 		flag_blueprint = self._match_flag(flag)
