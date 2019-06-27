@@ -38,7 +38,7 @@ class Library:
 			},
 			'variable'	: {
 				'original'		: {},
-				'transformed'	: []
+				'transformed'	: {}
 			}
 		}
 
@@ -46,10 +46,6 @@ class Library:
 		Fetch correct blueprint for command 
 		"""
 		self._get_blueprint()
-
-		print(self._is_primitive(5))
-		print(self._is_primitive(()))
-		print()
 
 	"""
 	PUBLIC methods
@@ -112,14 +108,14 @@ class Library:
 				self._transform_flag(flag_blueprint, opts)
 			else:
 				"""
-				Tuple is single value, list means more expansion.
-				But tuple can be nested.
+				Array is single value, list means more expansion.
+				But arrays can be nested.
 				"""
-				if type(opts) == tuple:
+				if self._is_array(opts):
 					"""
-					Nested tuple, flag with list option
+					Nested array, flag with list option
 					"""
-					if type(opts[0]) == tuple:
+					if type(opts[0]) == self._is_array(opts):
 						"""
 						TODO: address list in next version
 						"""
