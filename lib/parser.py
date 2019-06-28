@@ -108,6 +108,15 @@ class Parser:
 			print(expt)
 			return False
 		"""
+		'settings' enables to set required flags
+		"""
+		all_flags = list(self.data['flags'].keys())
+		for required_flag in self.data['settings']['required_flags']:
+			if required_flag not in all_flags:
+				raise KeyError('Flag \'{}\' is required but not specified in \'flags\''.format(required_flag))
+		
+
+		"""
 		Two schemas are defined, after checking general structure, each flags is 
 		validated againts its schema
 		"""
