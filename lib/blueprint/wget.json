@@ -1,15 +1,28 @@
 {
 	"settings": {
 		"required_flags": [
-			"output"
+			"source"
 		]
 	},
 	"flags": {
+		"source": [
+			{
+				"flag"		: null,
+				"unifier"	: null,
+				"format"	: {
+					"count"	: 1,
+					"preset": "1"
+				}
+			}
+		],
 		"output": [
 			{
 				"flag"		: "--output-document",
 				"unifier"	: "=",
-				"format"	: "single"
+				"format"	: {
+					"count"	: 1,
+					"preset": "1"
+				}
 			}
 		]
 	}

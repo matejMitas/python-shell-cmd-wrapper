@@ -80,9 +80,11 @@ class Library:
 		Add variable
 		"""
 		variables = self._add_variable()
-		for var in variables:
-			yield output_buffer + var
-
+		if len(variables):
+			for var in variables:
+				yield output_buffer + var
+		else:
+			yield output_buffer
 		"""
 		Cleanup after construction
 		"""
@@ -90,7 +92,6 @@ class Library:
 			self.structure['fixed']['already_set'] = []
 			self.structure['fixed']['transformed'] = []
 		
-		return output_buffer
 
 	def set_from_routine(self, routine_file):
 		parser = Parser('routine', routine_file)
