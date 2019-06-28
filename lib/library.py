@@ -57,11 +57,11 @@ class Library:
 	"""
 	PUBLIC methods
 	"""
-	def reset(self):
+	def list_flags(self):
 		"""
-		Resets
+		Info for user which flags are ready to be used
 		"""
-		self.fixed_set = False
+		return list(self.flags_match_table.keys())
 
 	def construct(self):
 		"""
