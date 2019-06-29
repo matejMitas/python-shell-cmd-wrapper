@@ -11,7 +11,7 @@ import json
 """
 Functional imports
 """
-import lib.defs 	as defs
+import pyshellwrapper.defs 	as defs
 
 def check_method_validity(type):
 	def wrapper(fn):

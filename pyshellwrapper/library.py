@@ -9,13 +9,13 @@ from pprint import pprint
 """
 Class imports
 """
-from lib.parser import Parser
+from pyshellwrapper.parser import Parser
 """
 Functional imports
 """
-import lib.defs as defs
+import pyshellwrapper.defs as defs
 
-class Library:
+class PyShellWrapper:
 	def __init__(self, blueprint, lib=None, **kwargs):
 		"""
 		Each blueprint can contain multiple libraries so further
@@ -40,7 +40,8 @@ class Library:
 				'already_set'	: [],
 				'transformed'	: []
 			},
-			'variable'	: {}
+			'variable'	: {},
+			'aux': []
 		}
 
 		"""
@@ -76,15 +77,16 @@ class Library:
 		Add fixed
 		"""
 		output_buffer += self.structure['fixed']['transformed']
+		aux = self.structure['aux']
 		"""
 		Add variable
 		"""
 		variables = self._add_variable()
 		if len(variables):
 			for var in variables:
-				yield output_buffer + var
+				yield output_buffer + var + aux
 		else:
-			yield output_buffer
+			yield output_buffer + aux
 		"""
 		Cleanup after construction
 		"""
@@ -139,6 +141,14 @@ class Library:
 			else:
 				raise IndexError('This version only support one variable flag.')
 
+	def set_auxiliary(self, *args):
+		for arg in args:
+			if self._is_array(arg):
+				for a in arg:
+					self.structure['aux'].append(a)
+			else:
+				self.structure['aux'].append(arg)
+
 	"""
 	PRIVATE methods
 	"""
@@ -167,13 +177,13 @@ class Library:
 		First thing to decide is whenever single or more values
 		were supplied
 		"""
-		items_count = flag_blueprint['format']['count']
+		items_count = flag_blueprint['format']['number']
 
 		"""
 		Check for easiest case, only one primitive value 
 		"""
 		if self._is_primitive(opts):
-			print(self._transform_flag(flag_blueprint, opts))
+			self._transform_flag(flag_blueprint, opts)
 		else:
 			"""
 			Array is single value, list means more expansion.

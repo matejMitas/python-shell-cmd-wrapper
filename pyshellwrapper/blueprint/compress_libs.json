@@ -13,7 +13,7 @@
 				"flag"		: "-i",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 1,
+					"number"	: 1,
 					"preset":	"1"
 
 				}
@@ -22,7 +22,7 @@
 				"flag"		: "-i",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 1,
+					"number"	: 1,
 					"preset":	"1"
 				}
 			}
@@ -32,7 +32,7 @@
 				"flag"		: "-o",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 1,
+					"number"	: 1,
 					"preset":	"1"
 				}
 			},
@@ -40,7 +40,7 @@
 				"flag"		: "-o",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 1,
+					"number"	: 1,
 					"preset":	"1"
 				}
 			}
@@ -50,7 +50,7 @@
 				"flag"		: "Cblk",
 				"unifier"	: "=",
 				"format"	: {
-					"count"	: 2,
+					"number"	: 2,
 					"preset": "{2,}"
 				}
 			},
@@ -58,7 +58,7 @@
 				"flag"		: "-t",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 2,
+					"number"	: 2,
 					"preset":	"2,"
 				}
 			}
@@ -68,7 +68,7 @@
 				"flag"		: "Stiles",
 				"unifier"	: "=",
 				"format"	: {
-					"count"	: 2,
+					"number"	: 2,
 					"preset": "{2,}"
 				}
 			},
@@ -76,7 +76,7 @@
 				"flag"		: "-t",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 2,
+					"number"	: 2,
 					"preset":	"2,"
 				}
 			}
@@ -86,7 +86,7 @@
 				"flag"		: "Cprecincts",
 				"unifier"	: "=",
 				"format"	: {
-					"count"	: 2,
+					"number"	: 2,
 					"preset":	"{2,}",
 					"list"		: {
 						"divider": ","
@@ -97,7 +97,7 @@
 				"flag"		: "-c",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 2,
+					"number"	: 2,
 					"preset":	"[2,]",
 					"list"		: {
 						"divider": ","
@@ -110,7 +110,7 @@
 				"flag"		: "Cmodes",
 				"unifier"	: "=",
 				"format"	: {
-					"count"	: 1,
+					"number"	: 1,
 					"preset":	"1",
 					"list"		: {
 						"divider": "|"
@@ -121,7 +121,7 @@
 				"flag"		: "-M",
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 1,
+					"number"	: 1,
 					"preset":	"1",
 					"match": true,
 					"pattern": {
@@ -141,7 +141,7 @@
 				"flag"			: "Creversible",
 				"unifier"		: "=",
 				"format"		: {
-					"count"	: 1,
+					"number"	: 1,
 					"preset": "1",
 					"match": true,
 					"pattern": {

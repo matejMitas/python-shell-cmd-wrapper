@@ -14,8 +14,8 @@ import jsonschema 	as js
 """
 Functional imports
 """
-import lib.defs 	as defs
-import lib.utils 	as utils
+import pyshellwrapper.defs 	as defs
+import pyshellwrapper.utils 	as utils
 
 
 

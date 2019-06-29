@@ -10,7 +10,7 @@
 				"flag"		: null,
 				"unifier"	: null,
 				"format"	: {
-					"count"	: 1,
+					"number": 1,
 					"preset": "1"
 				}
 			}
@@ -20,7 +20,7 @@
 				"flag"		: "--output-document",
 				"unifier"	: "=",
 				"format"	: {
-					"count"	: 1,
+					"number": 1,
 					"preset": "1"
 				}
 			}

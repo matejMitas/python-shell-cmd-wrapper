@@ -5,8 +5,8 @@ Definitions used throught the program.
 BLUEPRINT = 'blueprint'
 ROUTINE = 'routine'
 
-BLUEPRINTS_PATH = './lib/{}'.format(BLUEPRINT)
-ROUTINES_PATH 	= './lib/{}'.format(ROUTINE)
+BLUEPRINTS_PATH = './pyshellwrapper/{}'.format(BLUEPRINT)
+ROUTINES_PATH 	= './pyshellwrapper/{}'.format(ROUTINE)
 
 
 

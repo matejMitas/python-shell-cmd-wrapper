@@ -1,4 +1,4 @@
-from lib.library import Library
+from pyshellwrapper.library import PyShellWrapper as Library
 import sys
 
 # compress_lib = Library('compress_libs', 'kdu_compress')
@@ -44,6 +44,8 @@ convert_lib.set_variable(
 	# 	'out_4.ppm'
 	# ]
 )
+
+convert_lib.set_auxiliary('some_filename', [5, 4], (5,1))
 
 #convert_lib.set_variable(output='out_1.ppm')
 convert_lib.set_variable(tiles=(432, 765))

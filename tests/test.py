@@ -7,8 +7,11 @@ correct_results = {
 	'test_only_fixed_2': [
 		['kdu_compress', '-i', 'in_file', '-o', 'out_file', 'Stiles={256,256}']
 	],
-	'test_fixed_wget': [
+	'test_variable_wget': [
 		['wget', '--output-document=out.html', 'google.com'], ['wget', '--output-document=out.html', 'yahoo.com'], ['wget', '--output-document=out.html', 'bing.com']
+	],
+	'test_fixed_wget': [
+		['wget', '--output-document=out.html', 'google.com']
 	]
 }
 
@@ -43,7 +46,13 @@ def test_only_fixed_2():
 def test_fixed_wget():
 	lib = Library(blueprint='wget')
 	lib.set_fixed(output='out.html')
-	lib.set_variable(source=["google.com", "yahoo.com", "bing.com"])
+	lib.set_variable(source=['google.com', 'yahoo.com', 'bing.com'])
+
+	handle_output(lib, test_variable_wget)
+
+def test_fixed_wget():
+	lib = Library(blueprint='wget')
+	lib.set_fixed(output='out.html', source='google.com')
 
 	handle_output(lib, test_fixed_wget)
 

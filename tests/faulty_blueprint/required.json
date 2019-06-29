@@ -1,0 +1,8 @@
+{
+	"settings": {
+		"required_flags": [
+			"input"
+		]
+	},
+	"flags": {}
+}
