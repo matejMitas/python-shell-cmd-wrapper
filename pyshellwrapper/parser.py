@@ -8,8 +8,6 @@ Generic library imports
 import os
 import errno
 import json
-from pprint 		import pprint
-from termcolor 		import colored
 import jsonschema 	as js
 """
 Functional imports

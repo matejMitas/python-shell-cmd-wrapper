@@ -1,7 +1,12 @@
 from setuptools import setup, find_packages
 
 setup(
-	name='python-shell-comd-wrapper', 
-	version='1.0', 
-	packages=find_packages()
+    name='pyshellwrapper', 
+    version="0.1.0",
+    description='Working with shell programs in Python made easier.',
+    author='Matěj Mitaš',
+    author_email='contact@matejmitas.com',
+    license='MIT',
+    packages=['pyshellwrapper'],
+    install_requires=['jsonschema'],
 )
