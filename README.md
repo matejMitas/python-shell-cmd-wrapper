@@ -1,6 +1,7 @@
 # python-shell-cmd-wrapper
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/matejMitas/python-shell-cmd-wrapper/blob/master/LICENSE)
 [![PyPI version](https://badge.fury.io/py/pyshellwrapper.svg)](https://badge.fury.io/py/pyshellwrapper)
+[![Build Status](https://travis-ci.com/matejMitas/python-shell-cmd-wrapper.svg?branch=master)](https://travis-ci.com/matejMitas/python-shell-cmd-wrapper)
 
 
 Based on one of the parts of my bachelor thesis testing framework. Enables to call shell programs seamlessly within Python workflow. Derived from my [bachelor thesis](https://github.com/matejMitas/VUT_FIT-bakalarka).
@@ -132,37 +133,13 @@ More advanced way of controlling generation of command variants.
 
 Basic usage
 ------------------
-### `Lib` class
-
-Let us look onto basic usage with predefined library (`wget`). `Lib` is main class of package wrapping functionality. `blueprint` refers to json file in `./blueprint`.
+Let us look onto basic usage with predefined library (`wget`). `PyShellWrapper` is main class of package wrapping functionality. `blueprint` are built-in blueprints (user defined comming in version `0.2`.
 
 ```python
-convert_lib = Lib(
-	blueprint='convert' 
-)
-```
-Each blueprint might contain more than one library, `lib` distinguishes particular library. Sometimes one might want to repeat construction of flags for more advanced usage, default behaviour is to discard set flags.
 
-```python
-compress = Lib(
-	blueprint='compress_libs',
-	lib='kdu_compress',
-	reset_after_construct=True
-)
-```
+from pyshellwrapper.wrapper import PyShellWrapper
 
-Adding flags
-------------
-Setting fixed flags is advised to only once per each construction (if `reset_after_construct` is `True`) because once this method is invoked it automatically transforms all flags and stores them internally for faster construction. Repeated use might raise performance concerns for large number of flags.
-
-```python
-convert_lib.set_fixed(
-	colorspace='rgb'
-)
-```
-
-```python
-convert_lib.set_variable(
-	resize=[10, 20, 30, 50, 90]
+wrapper = PyShellWrapper(
+    blueprint='wget' 
 )
 ```
