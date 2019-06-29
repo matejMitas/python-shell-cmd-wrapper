@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name='pyshellwrapper', 
-    version="0.1.0",
+    version="0.1.2",
     description='Working with shell programs in Python made easier.',
     long_description=README,
     long_description_content_type="text/markdown",
@@ -19,5 +19,5 @@ setup(
     license='MIT',
     packages=['pyshellwrapper'],
     include_package_data=True,
-    install_requires=['jsonschema', "importlib_resources ; python_version<'3.7'"]
+    install_requires=['jsonschema>=3', "importlib_resources ; python_version<'3.7'"]
 )
