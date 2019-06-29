@@ -1,5 +1,6 @@
 # python-shell-cmd-wrapper
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/matejMitas/python-shell-cmd-wrapper/blob/master/LICENSE)
+[![PyPI version](https://badge.fury.io/py/pyshellwrapper.svg)](https://badge.fury.io/py/pyshellwrapper)
 
 
 Based on one of the parts of my bachelor thesis testing framework. Enables to call shell programs seamlessly within Python workflow. Derived from my [bachelor thesis](https://github.com/matejMitas/VUT_FIT-bakalarka).
