@@ -1,4 +1,4 @@
-from pyshellwrapper.library import PyShellWrapper as Library
+from pyshellwrapper.wrapper import PyShellWrapper as Library
 import sys
 
 # compress_lib = Library('compress_libs', 'kdu_compress')

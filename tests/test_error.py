@@ -1,4 +1,4 @@
-from lib.library import Library
+from pyshellwrapper.wrapper import PyShellWrapper as Library
 import pytest
 
 

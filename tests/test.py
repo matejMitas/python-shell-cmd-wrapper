@@ -1,4 +1,4 @@
-from lib.library import Library
+from pyshellwrapper.wrapper import PyShellWrapper as Library
 
 correct_results = {
 	'test_only_fixed_1': [
