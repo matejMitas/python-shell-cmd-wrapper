@@ -9,13 +9,13 @@ import os
 import errno
 import json
 import jsonschema 	as js
+import importlib.resources as res
 """
 Functional imports
 """
 import pyshellwrapper.defs 	as defs
 import pyshellwrapper.utils 	as utils
-
-
+from . import blueprint
 
 
 class Parser:
@@ -54,27 +54,7 @@ class Parser:
 	PRIVATE methods
 	"""
 	def handle_json(self):
-		"""
-		Used as a backbone function for handling
-		blueprints and routines.
-		"""
-		paths = {
-			'blueprint'	: defs.BLUEPRINTS_PATH,
-			'routine'	: defs.ROUTINES_PATH
-		}
-
-		#print(self.type, self.file)
-
-		if self.type not in list(paths.keys()):
-			return None
-
-		full_path = '{}/{}.json'.format(paths[self.type], self.file)
-		if not os.path.isfile(full_path):
-			raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), full_path)
-
-		with open(full_path) as json_file:
-			loaded_json = json.load(json_file)
-			return loaded_json
+		return json.loads(res.read_text(blueprint, '{}.json'.format(self.file)))
 
 
 	def _parse_blueprint(self):

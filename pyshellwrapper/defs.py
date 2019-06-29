@@ -5,11 +5,6 @@ Definitions used throught the program.
 BLUEPRINT = 'blueprint'
 ROUTINE = 'routine'
 
-BLUEPRINTS_PATH = './pyshellwrapper/{}'.format(BLUEPRINT)
-ROUTINES_PATH 	= './pyshellwrapper/{}'.format(ROUTINE)
-
-
-
 FORMAT_OPTIONS = {
 	'1'				: '{}',
 	'2,'			: '{},{}',
