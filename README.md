@@ -8,6 +8,13 @@ Motivation
 ------------
 Whilst working with not very widespread libraries/commands one might struggle using them without proper Python wrapper. Oftentimes nothing fancy is really required, simple abstraction layer is all that is needed. I encountered this very problem in my bachelor thesis when trying to automate image compression pipeline (JPEG2000) using various libraries. This package builds abstraction layer over base set of libraries, at the same time enabling users to easily add new ones.
 
+Installation
+------------
+```
+pip install pyshellwrapper
+```
+Requires Python `>=3.7`.
+
 Introductory Notes
 ------------
 - Typical CLI use certain naming convension for prompt values.
