@@ -1,5 +1,17 @@
-from pyshellwrapper.wrapper import PyShellWrapper as Library
+"""
+Functional testing
+"""
 
+"""
+Generic library imports
+"""
+from pyshellwrapper.wrapper import PyShellWrapper as Library
+import pytest
+
+"""
+Since 'construct()' is a generator results is always 2D list
+even for single item
+"""
 correct_results = {
 	'test_only_fixed_1': [
 		['kdu_compress', '-i', 'in_file', '-o', 'out_file']
@@ -14,6 +26,14 @@ correct_results = {
 		['wget', '--output-document=out.html', 'google.com']
 	]
 }
+
+@pytest.fixture
+def wget():
+	return Library(blueprint='wget')
+
+@pytest.fixture
+def kdu_compress():
+	return Library(blueprint='compress_libs', lib='kdu_compress')
 
 def get_res(fn_name):
 	try:
@@ -31,28 +51,22 @@ def handle_output(lib, fn_name):
 	assert it_list == get_res(fn_name.__name__)
 
 
-def test_only_fixed_1():
-	lib = Library(blueprint='compress_libs', lib='kdu_compress')
-	lib.set_fixed(input='in_file', output='out_file')
-	
-	handle_output(lib, test_only_fixed_1)
+def test_only_fixed_1(kdu_compress):
+	kdu_compress.set_fixed(input='in_file', output='out_file')
+	handle_output(kdu_compress, test_only_fixed_1)
 
-def test_only_fixed_2():
-	lib = Library(blueprint='compress_libs', lib='kdu_compress')
-	lib.set_fixed(input='in_file', output='out_file', tiles=(256,256))
-	
-	handle_output(lib, test_only_fixed_2)
+def test_only_fixed_2(kdu_compress):
+	kdu_compress.set_fixed(input='in_file', output='out_file', tiles=(256,256))
+	handle_output(kdu_compress, test_only_fixed_2)
 
-def test_fixed_wget():
-	lib = Library(blueprint='wget')
-	lib.set_fixed(output='out.html')
-	lib.set_variable(source=['google.com', 'yahoo.com', 'bing.com'])
+def test_variable_wget(wget):
+	wget.set_fixed(output='out.html')
+	wget.set_variable(source=['google.com', 'yahoo.com', 'bing.com'])
 
-	handle_output(lib, test_variable_wget)
+	handle_output(wget, test_variable_wget)
 
-def test_fixed_wget():
-	lib = Library(blueprint='wget')
-	lib.set_fixed(output='out.html', source='google.com')
+def test_fixed_wget(wget):
+	wget.set_fixed(output='out.html', source='google.com')
 
-	handle_output(lib, test_fixed_wget)
+	handle_output(wget, test_fixed_wget)
 

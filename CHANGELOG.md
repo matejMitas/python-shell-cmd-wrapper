@@ -34,7 +34,7 @@ translation authors keep things up-to-date.
 
 ## [0.1.5] - 2019-06-29
 ### Added
-- Folder with preset blueprints now available directly from package.
+- Folder with preset blueprints now available directly from the package.
 
 ## [0.1.4] - 2019-06-29
 ### Added
