@@ -54,7 +54,24 @@ class Parser:
 	PRIVATE methods
 	"""
 	def handle_json(self):
-		return json.loads(res.read_text(blueprint, '{}.json'.format(self.file)))
+
+		"""
+		User does not need to specify '.json' at the file name end 
+		"""
+		file_extenstion = '.json'
+
+		if self.file[-len(file_extenstion):] != file_extenstion:
+			self.file += file_extenstion
+
+		"""
+		Determine if blueprint is custom or built-in
+		"""
+		if self.file.find('/') != -1:
+			with open(self.file, 'r') as file:
+				return json.loads(file.read())
+		else:
+			if res.is_resource(blueprint, self.file):
+				return json.loads(res.read_text(blueprint, self.file))
 
 
 	def _parse_blueprint(self):

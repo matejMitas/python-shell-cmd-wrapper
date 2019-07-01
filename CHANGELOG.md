@@ -32,6 +32,18 @@ translation authors keep things up-to-date.
 ### Removed
 - Section about "changelog" vs "CHANGELOG". --->
 
+## [0.2.0] - 2019-07-01
+### Added
+- User can create custom blueprints
+- Blueprint has new required property in `settings` - `command`
+- `format` in blueprint items is customisable
+- Wrapper support new format of output (string)
+
+
+## [0.1.6] - 2019-06-29
+### Added
+- Folder with preset blueprints now available directly from the package.
+
 ## [0.1.5] - 2019-06-29
 ### Added
 - Folder with preset blueprints now available directly from the package.
