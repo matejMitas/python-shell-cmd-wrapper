@@ -24,7 +24,7 @@ class Parser:
 		self.file = json_file
 		self.possible_command = command
 		self.command = {
-			'index'	: -1,
+			'index'	: 0,
 			'name'	: None
 		}
 	
@@ -142,7 +142,7 @@ class Parser:
 		"""
 		for flag_key, flag_value in self.data['flags'].items():
 			if len(flag_value) != self.no_of_commands:
-				raise ValueError("Supplied number of libraries {} does not match all listed variants for '{}'".format(self.no_of_libraries, flag_key))
+				raise ValueError("Supplied number of libraries {} does not match all listed variants for '{}'".format(self.no_of_commands, flag_key))
 
 			for flag in flag_value:
 				"""
