@@ -15,7 +15,6 @@ def wget():
 """
 Fixed flags
 """
-
 def test_no_flag(wget):
 	with pytest.raises(KeyError):
 		wget.set_fixed(no_existent_flag=True)

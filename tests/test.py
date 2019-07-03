@@ -75,3 +75,17 @@ def test_fixed_wget(wget):
 
 def test_custom_blueprint():
 	Library(blueprint='./example_blueprint/wget_example.json')
+
+"""
+Optional parameters for main class
+"""
+def test_output_string():
+	wget = Library(blueprint='compress_libs', command='kdu_compress', output_format_list=False)
+
+	convert_lib.set_fixed(
+		input='in.ppm', 
+		blocks=(32, 64),
+		compression="lossy"
+	)
+
+	convert_lib.set_variable(tiles=[(432, 765), (111, 122)])

@@ -18,6 +18,36 @@
 				}
 			}
 		],
+
+		"accept": [
+
+		],
+
+		"mirror": [
+
+		],
+
+		"exclude_domains": [
+			{
+				"flag"		: "‐‐exclude-directories",
+				"unifier"	: null,
+				"format"	: {
+					"number": 1,
+					"preset": "1"
+				}
+			}
+		],
+
+		"max_speed": [
+			{
+				"flag"		: "--limit-rate",
+				"unifier"	: "=",
+				"format"	: {
+					"number": 1,
+					"preset": "1"
+				}
+			}
+		],
 		"output": [
 			{
 				"flag"		: "--output-document",

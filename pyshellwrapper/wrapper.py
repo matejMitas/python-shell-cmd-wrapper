@@ -16,7 +16,7 @@ Functional imports
 import pyshellwrapper.defs as defs
 
 class PyShellWrapper:
-	def __init__(self, blueprint, command=0, **kwargs):
+	def __init__(self, blueprint, command=0, reset_after_construct=True, output_format_list=True):
 		"""
 		Each blueprint can contain multiple libraries so further
 		distinguishing needs to take place in form of lib_name providing
@@ -28,10 +28,8 @@ class PyShellWrapper:
 		Library life cycle can altered to resetting after
 		each call of 'construct' method
 		"""
-		try:
-			self.reset_after_construct = kwargs['reset_after_construct']
-		except KeyError:
-			self.reset_after_construct = True
+		self.reset = reset_after_construct
+		self.output_format_list = output_format_list
 		"""
 		Internal structure for storing flags
 		"""
@@ -81,16 +79,20 @@ class PyShellWrapper:
 		"""
 		Add variable
 		"""
+		print(self.output_format_list)
+
 		variables = self._add_variable()
 		if len(variables):
 			for var in variables:
-				yield output_buffer + var + aux
+				output = output_buffer + var + aux 
+				yield output if self.output_format_list else ' '.join(output)
 		else:
-			yield output_buffer + aux
+			output = output_buffer + aux
+			yield output if self.output_format_list else ' '.join(output)
 		"""
 		Cleanup after construction
 		"""
-		if self.reset_after_construct:
+		if self.reset:
 			self.structure['fixed']['already_set'] = []
 			self.structure['fixed']['transformed'] = []
 		
