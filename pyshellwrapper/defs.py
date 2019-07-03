@@ -25,12 +25,12 @@ GENERAL_SCHEMA = {
 		'settings' : {
 			'type' 		 : 'object',
 			'additionalProperties'	: False,
-			'required'	 : ['required_flags'],
+			'required'	 : ['required_flags', 'commands'],
 			'properties' : {
 				'required_flags': {
 					'type': 'array'
 				},
-				'libraries': {
+				'commands': {
 					'type'	: 'array'
 				}
 			}

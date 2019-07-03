@@ -1,10 +1,10 @@
 {
 	"settings": {
+		"commands" 	: [
+			"kdu_compress", "opj_compress"
+		],
 		"required_flags": [
 			"input", "output"
-		],
-		"libraries" 	: [
-			"kdu_compress", "opj_compress"
 		]
 	},
 	"flags": {

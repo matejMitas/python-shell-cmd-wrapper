@@ -1,5 +1,8 @@
 {
 	"settings": {
+		"commands" 	: [
+			"wget"
+		],
 		"required_flags": [
 			"source"
 		]

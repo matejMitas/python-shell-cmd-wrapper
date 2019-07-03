@@ -16,14 +16,14 @@ Functional imports
 import pyshellwrapper.defs as defs
 
 class PyShellWrapper:
-	def __init__(self, blueprint, lib=None, **kwargs):
+	def __init__(self, blueprint, command=0, **kwargs):
 		"""
 		Each blueprint can contain multiple libraries so further
 		distinguishing needs to take place in form of lib_name providing
 		actual name
 		"""
 		self.blueprint_name = blueprint
-		self.lib_name = lib
+		self.command = command
 		"""
 		Library life cycle can altered to resetting after
 		each call of 'construct' method
@@ -72,7 +72,7 @@ class PyShellWrapper:
 		"""
 		Add command
 		"""
-		output_buffer += [self.lib_name if self.lib_name else self.blueprint_name]
+		output_buffer += [self.command_name]
 		"""
 		Add fixed
 		"""
@@ -223,18 +223,14 @@ class PyShellWrapper:
 
 
 	def _get_blueprint(self):
-		parser = Parser('blueprint', self.blueprint_name, self.lib_name)
+		parser = Parser('blueprint', self.blueprint_name, self.command)
 		if not parser.parse():
 			return False
 		"""
 		If there are multiple libraries in blueprint correct index of 
 		library must be found to later enable addressing of flag opts
 		"""
-		self.program_indexes = parser.get_libraries()
-		if not self.program_indexes:
-			self.blueprint_index = 0
-		else:
-			self.blueprint_index = self.program_indexes.index(self.lib_name)
+		self.blueprint_index, self.command_name = parser.get_command_info().values()
 		"""
 		Get all flags/opts from file
 		"""

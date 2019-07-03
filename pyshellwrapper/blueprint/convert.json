@@ -1,5 +1,8 @@
 {
 	"settings": {
+		"commands": [
+			"convert"
+		],
 		"required_flags": [
 			"input", "output"
 		]

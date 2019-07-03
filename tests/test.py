@@ -35,6 +35,9 @@ def wget():
 def kdu_compress():
 	return Library(blueprint='compress_libs', lib='kdu_compress')
 
+"""
+Handling assertions
+"""
 def get_res(fn_name):
 	try:
 		return correct_results[fn_name]
@@ -50,7 +53,9 @@ def handle_output(lib, fn_name):
 
 	assert it_list == get_res(fn_name.__name__)
 
-
+"""
+General testing
+"""
 def test_only_fixed_1(kdu_compress):
 	kdu_compress.set_fixed(input='in_file', output='out_file')
 	handle_output(kdu_compress, test_only_fixed_1)
@@ -62,11 +67,11 @@ def test_only_fixed_2(kdu_compress):
 def test_variable_wget(wget):
 	wget.set_fixed(output='out.html')
 	wget.set_variable(source=['google.com', 'yahoo.com', 'bing.com'])
-
 	handle_output(wget, test_variable_wget)
 
 def test_fixed_wget(wget):
 	wget.set_fixed(output='out.html', source='google.com')
-
 	handle_output(wget, test_fixed_wget)
 
+def test_custom_blueprint():
+	Library(blueprint='./example_blueprint/wget_example.json')

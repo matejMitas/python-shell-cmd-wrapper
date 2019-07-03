@@ -19,10 +19,14 @@ from . import blueprint
 
 
 class Parser:
-	def __init__(self, file_type, json_file, possible_lib=None):
+	def __init__(self, file_type, json_file, command):
 		self.type = file_type
 		self.file = json_file
-		self.lib = possible_lib
+		self.possible_command = command
+		self.command = {
+			'index'	: -1,
+			'name'	: None
+		}
 	
 	"""
 	PUBLIC methods
@@ -32,15 +36,13 @@ class Parser:
 		return getattr(self, '_parse_{}'.format(self.type))()
 			
 
-
 	@utils.check_method_validity(type=defs.BLUEPRINT)
 	def get_flags(self):
 		return self.data['flags']
 
 	@utils.check_method_validity(type=defs.BLUEPRINT)
-	def get_libraries(self):
-		if self.no_of_libraries > 1:
-			return self.data['settings']['libraries']
+	def get_command_info(self):
+		return self.command
 
 	@utils.check_method_validity(type=defs.ROUTINE)
 	def get_fixed(self):
@@ -62,7 +64,6 @@ class Parser:
 
 		if self.file[-len(file_extenstion):] != file_extenstion:
 			self.file += file_extenstion
-
 		"""
 		Determine if blueprint is custom or built-in
 		"""
@@ -76,15 +77,48 @@ class Parser:
 
 	def _parse_blueprint(self):
 		"""
-		Multiple libraries can be described in one file if 'settings' key
-		is present on root level otherwise 
+		Validate general structure (flags list and settings)
+		Schema can be found in defs.py
 		"""
-		self.no_of_libraries = 1
+		try:
+			js.validate(instance=self.data, schema=defs.GENERAL_SCHEMA)
+		except js.exceptions.ValidationError as expt:
+			"""
+			TODO: wrap to custom exceptions
+			"""
+			raise SyntaxError(expt)
 
-		if 'libraries' in self.data['settings']:
-			if self.lib not in self.data['settings']['libraries']:
-				raise ValueError('Specified library \'{}\' not found in blueprint {}.json'.format(self.lib, self.file))
-			self.no_of_libraries = len(self.data['settings']['libraries'])
+		"""
+		Multiple libraries can be described in one file if 'commands' key
+		is present on 'settings' level
+		"""
+		commands_list = self.data['settings']['commands']
+		self.no_of_commands = len(commands_list)
+
+		"""
+		User can either omit 'command' argument completely, that means using
+		first comand in 'commmands', specify index or command itself
+		"""
+		if isinstance(self.possible_command, int):
+			if self.possible_command > self.no_of_commands:
+				raise IndexError("Can't select command with index {}, only {} available".format(self.possible_command, self.no_of_commands))
+			elif self.possible_command < 0:
+				raise IndexError("Can't select command with negative index {}".format(self.possible_command))
+
+			self.command = {
+				'index': self.possible_command,
+				'name': commands_list[self.possible_command]
+			}	
+		elif isinstance(self.possible_command, str):
+			if self.possible_command not in commands_list:
+				raise ValueError("Specified library '{}' not found in blueprint '{}'".format(self.possible_command, self.file))
+
+			self.command = {
+				'index': commands_list.index(self.possible_command),
+				'name': self.possible_command
+			}	
+		else:
+			raise TypeError("Specified command must by either index (int) or name (str), is '{}'".format(type(self.possible_command)))
 
 		if self._check_blueprint():
 			return True
@@ -94,21 +128,12 @@ class Parser:
 
 	def _check_blueprint(self):
 		"""
-		Validate general structure (flags list and settings)
-		Schema can be found in defs.py
-		"""
-		try:
-			js.validate(instance=self.data, schema=defs.GENERAL_SCHEMA)
-		except js.exceptions.ValidationError as expt:
-			print(expt)
-			return False
-		"""
 		'settings' enables to set required flags
 		"""
 		all_flags = list(self.data['flags'].keys())
 		for required_flag in self.data['settings']['required_flags']:
 			if required_flag not in all_flags:
-				raise KeyError('Flag \'{}\' is required but not specified in \'flags\''.format(required_flag))
+				raise KeyError("Flag '{}' is required but not specified in 'flags'".format(required_flag))
 		
 
 		"""
@@ -116,8 +141,8 @@ class Parser:
 		validated againts its schema
 		"""
 		for flag_key, flag_value in self.data['flags'].items():
-			if len(flag_value) != self.no_of_libraries:
-				raise ValueError('Supplied number of libraries {} does not match all listed variants for \'{}\''.format(self.no_of_libraries, flag_key))
+			if len(flag_value) != self.no_of_commands:
+				raise ValueError("Supplied number of libraries {} does not match all listed variants for '{}'".format(self.no_of_libraries, flag_key))
 
 			for flag in flag_value:
 				"""
@@ -128,7 +153,7 @@ class Parser:
 					try:
 						js.validate(instance=flag, schema=defs.FLAG_SCHEMA)
 					except js.exceptions.ValidationError as expt:
-						print(expt)
+						raise SyntaxError(expt)
 		return True
 
 	def _check_routine(self):
