@@ -26,8 +26,8 @@ correct_results = {
 		['wget', '--output-document=out.html', 'google.com']
 	],
 	'test_output_string': [
-		'kdu_compress -i in.ppm Cblk={32,64} Creversible=lossy Stiles={432,765}', 
-		'kdu_compress -i in.ppm Cblk={32,64} Creversible=lossy Stiles={111,122}'
+		'kdu_compress -i in.ppm Cblk={32,64} Creversible=no Stiles={432,765}', 
+		'kdu_compress -i in.ppm Cblk={32,64} Creversible=no Stiles={111,122}'
 	]
 }
 
