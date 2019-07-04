@@ -5,13 +5,23 @@ Definitions used throught the program.
 BLUEPRINT = 'blueprint'
 ROUTINE = 'routine'
 
-FORMAT_OPTIONS = {
-	'1'				: '{}',
-	'2,'			: '{},{}',
-	'{2,}'			: '{{{},{}}}',
-	'[2,]'			: '[{},{}]',
-	'(2,)'			: '({},{})'
-}
+"""
+Each number of arguments has own index
+for better matching
+"""
+FORMAT_OPTIONS = [
+	{
+		'1'		: '{}',
+		'dq1dq'	: '"{}"',
+		'q1q'	: "{}",
+	},
+	{
+		'2,'	: '{},{}',
+		'{2,}'	: '{{{},{}}}',
+		'[2,]'	: '[{},{}]',
+		'(2,)'	: '({},{})'
+	}
+]
 
 
 """

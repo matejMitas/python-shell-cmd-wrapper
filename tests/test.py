@@ -80,7 +80,7 @@ def test_custom_blueprint():
 Optional parameters for main class
 """
 def test_output_string():
-	wget = Library(blueprint='compress_libs', command='kdu_compress', output_format_list=False)
+	wget = Library(blueprint='wget', output_format_list=False)
 
 	convert_lib.set_fixed(
 		input='in.ppm', 

@@ -49,18 +49,29 @@ Set variable parameters
 #convert_lib.set_variable(output='out_1.ppm')
 #convert_lib.set_variable(tiles=(432, 765))
 
-convert_lib = Library(blueprint='compress_libs', command='kdu_compress', output_format_list=False)
+# wget = Library(blueprint='wget', command=0)
 
-convert_lib.set_fixed(
-	input='in.ppm', 
-	blocks=(32, 64),
-	compression="lossy"
+# wget.set_fixed(
+# 	source='google.com',
+# 	max_speed='50k'
+# )
+
+# #convert_lib.set_variable(tiles=[(432, 765), (111, 122)])
+
+# """
+# Set variable parameters
+# """
+# for variant in wget.construct():
+# 	print(variant)
+
+
+
+kdu = Library(blueprint='compress_libs', command='kdu_compress')
+kdu.set_fixed(
+	input='test.ppm',
+	output='test.jp2',
+	tiles=(122,211)
 )
 
-convert_lib.set_variable(tiles=[(432, 765), (111, 122)])
-
-"""
-Set variable parameters
-"""
-for variant in convert_lib.construct():
+for variant in kdu.construct():
 	print(variant)

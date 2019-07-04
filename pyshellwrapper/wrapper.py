@@ -79,7 +79,6 @@ class PyShellWrapper:
 		"""
 		Add variable
 		"""
-		print(self.output_format_list)
 
 		variables = self._add_variable()
 		if len(variables):
@@ -173,55 +172,55 @@ class PyShellWrapper:
 		return ret_opts
 
 
-	def _set_variable_single(self, flag_blueprint, opts):
-		flag_blueprint = self._match_flag(flag)
-		"""
-		First thing to decide is whenever single or more values
-		were supplied
-		"""
-		items_count = flag_blueprint['format']['number']
+	# def _set_variable_single(self, flag_blueprint, opts):
+	# 	flag_blueprint = self._match_flag(flag)
+	# 	"""
+	# 	First thing to decide is whenever single or more values
+	# 	were supplied
+	# 	"""
+	# 	items_count = flag_blueprint['format']['number']
 
-		"""
-		Check for easiest case, only one primitive value 
-		"""
-		if self._is_primitive(opts):
-			self._transform_flag(flag_blueprint, opts)
-		else:
-			"""
-			Array is single value, list means more expansion.
-			But arrays can be nested.
-			"""
-			if self._is_array(opts):
-				"""
-				Nested array, flag with list option
-				"""
-				if type(opts[0]) == self._is_array(opts):
-					"""
-					TODO: address list in next version
-					"""
-					pass
-				else:
-					self._transform_flag(flag_blueprint, opts)
-			else:
-				for opt in opts:
-					self._transform_flag(flag_blueprint, opt)
+	# 	"""
+	# 	Check for easiest case, only one primitive value 
+	# 	"""
+	# 	if self._is_primitive(opts):
+	# 		self._transform_flag(flag_blueprint, opts)
+	# 	else:
+	# 		"""
+	# 		Array is single value, list means more expansion.
+	# 		But arrays can be nested.
+	# 		"""
+	# 		if self._is_array(opts):
+	# 			"""
+	# 			Nested array, flag with list option
+	# 			"""
+	# 			if type(opts[0]) == self._is_array(opts):
+	# 				"""
+	# 				TODO: address list in next version
+	# 				"""
+	# 				pass
+	# 			else:
+	# 				self._transform_flag(flag_blueprint, opts)
+	# 		else:
+	# 			for opt in opts:
+	# 				self._transform_flag(flag_blueprint, opt)
 
 
-		if items_count > 1:
-				"""
-				Multiple values, can be in nested list
-				"""
-				pass
-				#print('multiple')
+	# 	if items_count > 1:
+	# 			"""
+	# 			Multiple values, can be in nested list
+	# 			"""
+	# 			pass
+	# 			#print('multiple')
 
-		else:
-			"""
-			Value is primitive data type, assign can take place
-			"""
-			pass
-			#print(opts)
-			#print(self._transform_flag(flag_blueprint, opts))
-			#print('single')
+	# 	else:
+	# 		"""
+	# 		Value is primitive data type, assign can take place
+	# 		"""
+	# 		pass
+	# 		#print(opts)
+	# 		#print(self._transform_flag(flag_blueprint, opts))
+	# 		#print('single')
 
 
 	def _get_blueprint(self):
@@ -265,7 +264,6 @@ class PyShellWrapper:
 		else:
 			transformed_opt = self._transform_opts(flag_blueprint['format'], opts)
 
-
 		if transformed_opt:
 			"""
 			Handle unifier
@@ -285,17 +283,26 @@ class PyShellWrapper:
 
 	def _transform_opts(self, opts_blueprint, opts):
 		opts_preset = opts_blueprint['preset']
+		opts_number = opts_blueprint['number'] - 1
 		opts_preset_type = type(opts_preset)
-
 		
 		if opts_preset_type == str:
 			"""
-			String means matching of predefined presets
+			String means matching predefined presets
 			"""
-			if opts_preset == '1':
-				return opts
+			matched_preset = defs.FORMAT_OPTIONS[opts_number][opts_preset]
+
+			if opts_number:
+				"""
+				Multiple part parameter
+				"""
+				return matched_preset.format(*opts)
 			else:
-				return defs.FORMAT_OPTIONS[opts_preset].format(opts[0], opts[1])
+				"""
+				Single part
+				"""
+				return matched_preset.format(opts)
+
 		elif opts_preset_type == dict:
 			"""
 			Custom formating is also enabled, setting divider/left & right side of expression

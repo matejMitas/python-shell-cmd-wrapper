@@ -29,7 +29,7 @@
 
 		"exclude_domains": [
 			{
-				"flag"		: "‐‐exclude-directories",
+				"flag"		: "--exclude-directories",
 				"unifier"	: null,
 				"format"	: {
 					"number": 1,
@@ -44,7 +44,7 @@
 				"unifier"	: "=",
 				"format"	: {
 					"number": 1,
-					"preset": "1"
+					"preset": "dq1dq"
 				}
 			}
 		],
