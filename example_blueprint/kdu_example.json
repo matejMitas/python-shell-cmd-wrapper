@@ -1,0 +1,118 @@
+{
+	"settings": {
+		"commands" 	: [
+			"kdu_compress"
+		],
+		"required_flags": [
+			"input", "output"
+		]
+	},
+	"flags": {
+		"input": [
+			{
+				"flag"		: "-i",
+				"unifier"	: null,
+				"format"	: {
+					"number"	: 1,
+					"preset":	"1"
+
+				}
+			}
+		],
+		"output": [
+			{
+				"flag"		: "-o",
+				"unifier"	: null,
+				"format"	: {
+					"number"	: 1,
+					"preset":	"1"
+				}
+			}
+		],
+		"blocks": [
+			{
+				"flag"		: "Cblk",
+				"unifier"	: "=",
+				"format"	: {
+					"number"	: 2,
+					"preset": "{2,}"
+				}
+			}
+		],
+		"tiles": [
+			{
+				"flag"		: "Stiles",
+				"unifier"	: "=",
+				"format"	: {
+					"number"	: 2,
+					"preset": "{2,}"
+				}
+			}
+		],
+		"fake_flag": [
+			{
+				"flag"		: "Stiles",
+				"unifier"	: "=",
+				"format"	: {
+					"number"	: 4,
+					"preset": {
+						"left": "?",
+						"divider": "-",
+						"right": ">"
+					}
+				}
+			}
+		],
+		"precincts": [
+			{
+				"flag"		: "Cprecincts",
+				"unifier"	: "=",
+				"format"	: {
+					"number"	: 2,
+					"preset":	"{2,}",
+					"list"		: {
+						"divider": ","
+					}
+				}
+			}
+		],
+		"mode": [
+			{
+				"flag"		: "Cmodes",
+				"unifier"	: "=",
+				"format"	: {
+					"number"	: 1,
+					"preset":	"1",
+					"list"		: {
+						"divider": "|"
+					}
+				}
+			}
+		],
+		"compression": [
+			{
+				"flag"			: "Creversible",
+				"unifier"		: "=",
+				"format"		: {
+					"number"	: 1,
+					"preset": "1",
+					"match": true,
+					"pattern": {
+						"lossy"		: "no",
+						"lossless"	: "yes"
+					}
+				}
+			}
+		],
+		"inline_rgb_420": [
+			{
+				"flag"			: "-rgb_to_420",
+				"unifier"		: null,
+				"format"		: {
+					"preset": null,
+					"toggle": true
+				}
+			}
+		]
+	}
+}
