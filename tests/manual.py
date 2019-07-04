@@ -66,7 +66,7 @@ Set variable parameters
 
 
 
-kdu = Library(blueprint='compress_libs', command='kdu_compress')
+kdu = Library(blueprint='./example_blueprint/kdu_example.json', command='kdu_compress')
 kdu.set_fixed(
 	input='test.ppm',
 	output='test.jp2',

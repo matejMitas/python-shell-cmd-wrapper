@@ -81,28 +81,6 @@
 				}
 			}
 		],
-		"fake_flag": [
-			{
-				"flag"		: "Stiles",
-				"unifier"	: "=",
-				"format"	: {
-					"number"	: 4,
-					"preset": {
-						"left": "?",
-						"divider": null,
-						"right": ">"
-					}
-				}
-			},
-			{
-				"flag"		: "-t",
-				"unifier"	: null,
-				"format"	: {
-					"number"	: 2,
-					"preset":	"2,"
-				}
-			}
-		],
 		"precincts": [
 			{
 				"flag"		: "Cprecincts",

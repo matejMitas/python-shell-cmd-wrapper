@@ -35,16 +35,16 @@ Used for describing flags/parameters of a command. Each blueprint has two mandat
 ```json
 {
     "settings": {
+        "commands"     : [
+            "kdu_compress", "opj_compress"
+        ],
         "required_flags": [
             "input", "output"
-        ],
-        "libraries"     : [
-            "kdu_compress", "opj_compress"
         ]
     }
 }
 ```
-Here is a typical `settings` portion of a blueprint. First are `required_flags`. Most of the programs have at least one so it is logical to require specification to avoid unnecessary error at execution. `libraries` are used for distinguishing between multiple libraries in single blueprint. This is optional and only required for multiple libraries.
+Here is a typical `settings` portion of a blueprint. First are `required_flags`. Most of the programs have at least one so it is logical to require specification to avoid unnecessary error at execution. `commands` are used for distinguishing between multiple commands in single blueprint.
 
 ```json
 {
@@ -71,40 +71,52 @@ Here is a typical `settings` portion of a blueprint. First are `required_flags`.
     }
 }
 ```
-Individual `flags` have following structure. Flag name can by selected at user's will; semantic meaning is advised to be preserved. Its value is array for multiple options, this structure is unchanged not matter how many libraries is there to maintain consistency. This example would take `input="path/to/file"` and transform it to `-i /path/to/file`. Sometimes naming of a flag is not needed. If further manipulation of given flag is desired (variable) set `"flag": null`, otherwise use `set_auxiliary()`. Flag can have parameters that are paired by location (directly follows) `-flag param` or by certain unifier `-flag=param`. Format specifies flag parameter; `count` is used for transformation purposes, `preset` are predefined format for user convenience.
+Individual `flags` have following structure. Flag name can by selected at user's will; semantic meaning is advised to be preserved. Its value is array for multiple options, this structure is unchanged not matter how many commands is there to maintain consistency. This example would take `input="path/to/file"` and transform it to `-i /path/to/file`. Sometimes naming of a flag is not needed. If further manipulation of given flag is desired (variable) set `"flag": null`, otherwise use `set_auxiliary()`. Flag can have parameters that are paired by location (directly follows) `-flag param` or by certain unifier `-flag=param`. Format specifies flag parameter; `count` is used for transformation purposes, `preset` are predefined format for user convenience.
 
 
 | Preset | Input | Transformed |
 | --- | --- | --- |
 | 1 | input="input.txt" | -i input.txt |
+| q1q | input="input.txt" | -i 'input.txt' |
+| dq1dq | input="input.txt" | -i "input.txt" |
 | 2, | point=(20,45) | --point 20,45 |
 | [2,] | point=(20,45) | --point [20,45] |
 | (2,) | point=(20,45) | --point (20,45) |
 | {2,} | point=(20,45) | --point {20,45} |
 
-User defined formats presets are comming in next version (`0.2`).
+Please not that for the purposes of this example `divider` and `flags` were not specified, focus on format presets. Moreover, starting from version `0.2` user can define custom format presets with following structure:
+
+```json
+"preset": {
+    "left": "?",
+    "divider": "-",
+    "right": ">"
+}
+```
+Parameter/s are wrapper from both sides by `left` and `right`, with `divider` separating parts. Previously, `unifier` was defined as a `string` with option to be left blank manifesting as a space/new list item in final output. Here, only `strings` are allowed to not intefere with `list` functionality. Number of parts is variable according to `number` in `format`. 
+
+
+
 
 ### Number vs. List
 Distinction might be unclear. `number` is a number of parameter's parts that constitute compoment. Input file always has one part (file name), point in 2D space have 2 `x,y` and so on. Parameter can consist of multiple compoment, e.g. start points for a game  <br>`--points=[0,0],[50,20],[880,50]`. Therefore `list` is a list of components that are composed of parts (with given number). 
 
 ```json
-{
-    "points": [
-        {
-            "flag"      : "--points",
-            "unifier"   : "=",
-            "format"    : {
-                "number" : 2,
-                "preset": "[2,]"
-            },
-            "list": {
-                "divider": ","
-            }
+"points": [
+    {
+        "flag"      : "--points",
+        "unifier"   : "=",
+        "format"    : {
+            "number" : 2,
+            "preset": "[2,]"
+        },
+        "list": {
+            "divider": ","
         }
-    ]
-}
+    }
+]
 ```
-Example of `points` flag. Please note `list` are to be fully supported in version (`0.3`)
+Example of `points` flag. Please note `list` are to be fully supported in version (`0.4`).
 
 
 
@@ -133,13 +145,24 @@ More advanced way of controlling generation of command variants.
 
 Basic usage
 ------------------
-Let us look onto basic usage with predefined library (`wget`). `PyShellWrapper` is main class of package wrapping functionality. `blueprint` are built-in blueprints (user defined comming in version `0.2`.
+Let us look onto basic usage of a command (`wget`) with predefined [blueprint](https://github.com/matejMitas/python-shell-cmd-wrapper/blob/master/pyshellwrapper/blueprint/wget.json) . `PyShellWrapper` is main class of package wrapping functionality.
 
 ```python
 
 from pyshellwrapper.wrapper import PyShellWrapper
 
-wrapper = PyShellWrapper(
-    blueprint='wget' 
-)
+wget = PyShellWrapper(blueprint='wget')
+wget.set_fixed(output='out.html')
+wget.set_variable(source=['google.com', 'yahoo.com', 'bing.com'])
+
+for variant in wget.construct():
+    print(variant)
+```
+
+Which results to:
+
+```python
+['wget', '--output_document="out.html"', 'google.com']
+['wget', '--output_document="out.html"', 'yahoo.com']
+['wget', '--output_document="out.html"', 'bing.com']
 ```
