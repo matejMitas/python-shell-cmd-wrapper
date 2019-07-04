@@ -307,12 +307,9 @@ class PyShellWrapper:
 			"""
 			Custom formating is also enabled, setting divider/left & right side of expression
 			"""
-			print(opts_preset)
-			return '{}{}{}{}{}'.format(opts_preset['left'], opts[0], opts_preset['divider'], opts[1], opts_preset['right'])
+			opts_prepared = '{}'.format(opts_preset['divider']).join([str(_) for _ in opts])
+			return '{}{}{}'.format(opts_preset['left'], opts_prepared, opts_preset['right'])
 
-
-		# print(opts_blueprint)
-		# print(opts)
 
 	def _transform_opts_list(self, opts_blueprint, opts):
 		pass

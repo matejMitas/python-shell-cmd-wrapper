@@ -32,11 +32,12 @@ translation authors keep things up-to-date.
 ### Removed
 - Section about "changelog" vs "CHANGELOG". --->
 
-## [0.2.0] - 2019-07-01
+## [0.2.0] - 2019-07-04
 ### Added
 - User can create custom blueprints
-- Blueprint has new required property in `settings` - `command`
-- `format` in blueprint items is customisable
+- Blueprint has new required property in `settings`, `commands` instead of `libraries`
+- `format` of blueprint items is customisable
+- `format` has two new presets (`q1q` -> 'sample', `dq1dq` -> "sample")
 - Wrapper support new format of output (string)
 
 

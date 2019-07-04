@@ -70,7 +70,8 @@ kdu = Library(blueprint='compress_libs', command='kdu_compress')
 kdu.set_fixed(
 	input='test.ppm',
 	output='test.jp2',
-	tiles=(122,211)
+	tiles=(122,211),
+	fake_flag=(44,25,84,48)
 )
 
 for variant in kdu.construct():
