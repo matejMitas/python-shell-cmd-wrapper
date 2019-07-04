@@ -24,6 +24,10 @@ correct_results = {
 	],
 	'test_fixed_wget': [
 		['wget', '--output-document=out.html', 'google.com']
+	],
+	'test_output_string': [
+		'kdu_compress -i in.ppm Cblk={32,64} Creversible=lossy Stiles={432,765}', 
+		'kdu_compress -i in.ppm Cblk={32,64} Creversible=lossy Stiles={111,122}'
 	]
 }
 
@@ -33,7 +37,7 @@ def wget():
 
 @pytest.fixture
 def kdu_compress():
-	return Library(blueprint='compress_libs', lib='kdu_compress')
+	return Library(blueprint='compress_libs', command='kdu_compress')
 
 """
 Handling assertions
@@ -80,12 +84,13 @@ def test_custom_blueprint():
 Optional parameters for main class
 """
 def test_output_string():
-	wget = Library(blueprint='wget', output_format_list=False)
+	kdu = Library(blueprint='compress_libs', command='kdu_compress', output_format_list=False)
 
-	convert_lib.set_fixed(
+	kdu.set_fixed(
 		input='in.ppm', 
 		blocks=(32, 64),
 		compression="lossy"
 	)
 
-	convert_lib.set_variable(tiles=[(432, 765), (111, 122)])
+	kdu.set_variable(tiles=[(432, 765), (111, 122)])
+	handle_output(kdu, test_output_string)

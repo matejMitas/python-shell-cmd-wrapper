@@ -71,7 +71,8 @@ kdu.set_fixed(
 	input='test.ppm',
 	output='test.jp2',
 	tiles=(122,211),
-	fake_flag=(44,25,84,48)
+	compression="lossy",
+	inline_rgb_420=True
 )
 
 for variant in kdu.construct():

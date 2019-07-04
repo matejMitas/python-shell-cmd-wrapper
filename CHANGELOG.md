@@ -1,5 +1,8 @@
 # Changelog
 
+Is divided into two parts, released and upcoming. Please note that upcoming release might change
+or even be cancelled completely.
+
 <!---
 ## [0.1.5] - 2019-06-29
 ### Added
@@ -31,6 +34,27 @@ translation authors keep things up-to-date.
 
 ### Removed
 - Section about "changelog" vs "CHANGELOG". --->
+
+# Upcoming
+
+## [0.6.0] - ???
+### Added
+- Execution interface
+
+## [0.5.0] - ???
+### Added
+- Flags can be now described in separate file called `routine` that gives users much more control
+
+## [0.4.0] - ???
+### Added
+- Support for lists
+
+## [0.3.0] - ???
+### Added
+- Support for `toggle` flags
+- Support for `match` flags
+
+# Released
 
 ## [0.2.0] - 2019-07-04
 ### Added
