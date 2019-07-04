@@ -209,67 +209,82 @@ class PyShellWrapper:
 		flag 		= flag_blueprint['flag']
 		unifier 	= flag_blueprint['unifier']
 		opt_format 	= flag_blueprint['format']
-		"""
-		Opts are the most important part of the transformation because
-		they need to put into the right format or even concatenated to
-		a list hence they are first to address
-		"""
-		if 'list' in flag_blueprint['format']:
-			transformed_opt = None
-		else:
-			transformed_opt = self._handle_opts(flag_blueprint['format'], opts)
 
-		if transformed_opt:
+		if opt_format:
 			"""
-			Handle unifier
-			"""		
-			if unifier:
-				transform_buffer.append('{}{}{}'.format(flag, unifier, transformed_opt))
+			Opts are the most important part of the transformation because
+			they need to put into the right format or even concatenated to
+			a list hence they are first to address
+			"""
+			if 'list' in opt_format:
+				transformed_opt = None
 			else:
+				transformed_opt = self._handle_opts(opt_format, opts)
+
+			if transformed_opt != None:
 				"""
-				Handle flag
-				"""
-				if flag:
-					transform_buffer.append(flag)
-				transform_buffer.append(transformed_opt)
+				Handle unifier
+				"""		
+				if unifier:
+					transform_buffer.append('{}{}{}'.format(flag, unifier, transformed_opt))
+				else:
+					"""
+					Handle flag
+					"""
+					if flag:
+						transform_buffer.append(flag)
+					transform_buffer.append(transformed_opt)
+		else:
+			"""
+			Without format is only toggle
+			"""
+			if opts:
+				transform_buffer.append(flag)
 		
 		return transform_buffer
 
 
 	def _handle_opts(self, opts_blueprint, opts):
-		print(opts_blueprint)
-
-		# opts_preset = opts_blueprint['preset']
-		# opts_number = opts_blueprint['number'] - 1
-		# opts_preset_type = type(opts_preset)
-
-		# if opts_preset_type == str:
-		# 	"""
-		# 	String means matching predefined presets
-		# 	"""
-		# 	matched_preset = defs.FORMAT_OPTIONS[opts_number][opts_preset]
-
-		# 	if opts_number:
-		# 		"""
-		# 		Multiple part parameter
-		# 		"""
-		# 		return matched_preset.format(*opts)
-		# 	else:
-		# 		"""
-		# 		Single part
-		# 		"""
-		# 		return matched_preset.format(opts)
-
-		# elif opts_preset_type == dict:
-		# 	"""
-		# 	Custom formating is also enabled, setting divider/left & right side of expression
-		# 	"""
-		# 	opts_prepared = '{}'.format(opts_preset['divider']).join([str(_) for _ in opts])
-		# 	return '{}{}{}'.format(opts_preset['left'], opts_prepared, opts_preset['right'])
+		opts_preset = opts_blueprint['preset']
+		"""
+		Matching needs to take place
+		"""
+		if 'pattern' in opts_blueprint:
+			pattern = opts_blueprint['pattern']['match']
+			return self._transform_opts(opts_blueprint, pattern[opts])
+		else:
+			return self._transform_opts(opts_blueprint, opts)
 
 
-	def _transform_opts():
-		pass
+	def _transform_opts(self, opts_blueprint, opts):
+		opts_preset = opts_blueprint['preset']
+		opts_number = opts_blueprint['number'] - 1
+		opts_preset_type = type(opts_preset)
+
+		if opts_preset_type == str:
+			"""
+			String means matching predefined presets
+			"""
+			matched_preset = defs.FORMAT_OPTIONS[opts_number][opts_preset]
+
+			if opts_number:
+				"""
+				Multiple part parameter
+				"""
+				return matched_preset.format(*opts)
+			else:
+				"""
+				Single part
+				"""
+				return matched_preset.format(opts)
+
+		elif opts_preset_type == dict:
+			"""
+			Custom formating is also enabled, setting divider/left & right side of expression
+			"""
+			opts_prepared = '{}'.format(opts_preset['divider']).join([str(_) for _ in opts])
+			return '{}{}{}'.format(opts_preset['left'], opts_prepared, opts_preset['right'])
+
 
 
 

@@ -95,11 +95,12 @@
 				"unifier"		: "=",
 				"format"		: {
 					"number"	: 1,
-					"preset": "1",
-					"match": true,
-					"pattern": {
-						"lossy"		: "no",
-						"lossless"	: "yes"
+					"preset"	: "1",
+					"pattern" 	: {
+						"match"	: {
+							"lossy"		: "no",
+							"lossless"	: "yes"
+						}
 					}
 				}
 			}
@@ -108,9 +109,7 @@
 			{
 				"flag"			: "-rgb_to_420",
 				"unifier"		: null,
-				"format"		: {
-					"preset": null
-				}
+				"format"		: null
 			}
 		]
 	}

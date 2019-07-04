@@ -76,7 +76,7 @@ FLAG_SCHEMA = {
 	        ]
 	    },
 	    'format':{  
-	        'type':'object',
+	        'type': ['object', 'null'],
 	        'dependencies': {
 			    'match': ['pattern']
 			},
