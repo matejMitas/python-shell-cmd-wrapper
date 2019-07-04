@@ -1,0 +1,59 @@
+{
+	"settings": {
+		"commands" 	: [
+			"kdu_compress", "opj_compress"
+		],
+		"required_flags": [
+			"input", "output"
+		],
+		"templates": {
+			"toggle": {
+				"my_flag": ["-f", null]
+			},
+			"general": {
+				"@double": {
+					"flag"		: "Cblk",
+					"unifier"	: "=",
+					"format"	: "%my_format"
+				}
+			},
+			"format": {
+				"%my_format": {
+					"number"		: 3,
+					"format_string"	: "-%|%-",
+				},
+				"%voxel": {
+					"number"		: 3,
+					"format_string"	: "<%,%,%>"
+				}
+				
+			}
+		}
+	},
+	"flags": {
+		"blocks": [
+			{
+				"template": "@double(Cblk)"
+			},
+			{
+				"flag"		: "-t",
+				"unifier"	: null,
+				"format"	: "%voxel"
+			}
+		],
+		"tiles": [
+			{
+				"template": "@double(Stiles)"
+			},
+			{
+				"flag"		: "-t",
+				"unifier"	: null,
+				"format"	: {
+					"number"	: 2,
+					"preset":	"2,",
+					"units": "px"
+				}
+			}
+		]
+	}
+}

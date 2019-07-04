@@ -123,16 +123,16 @@
 				"format"	: {
 					"number"	: 1,
 					"preset":	"1",
-					"match": true,
 					"pattern": {
-						"BYPASS"	: 1,
-						"RESET"		: 2, 
-						"RESTART"	: 4,
-						"VSC"		: 8,
-						"ERTERM"	: 16,
-						"SEGMARK"	: 32
-					},
-					"modifier"	: "+"
+						"match": {
+							"BYPASS"	: 1,
+							"RESET"		: 2, 
+							"RESTART"	: 4,
+							"VSC"		: 8,
+							"ERTERM"	: 16,
+							"SEGMARK"	: 32
+						},
+					}
 				}
 			}
 		],
@@ -142,11 +142,12 @@
 				"unifier"		: "=",
 				"format"		: {
 					"number"	: 1,
-					"preset": "1",
-					"match": true,
-					"pattern": {
-						"lossy"		: "no",
-						"lossless"	: "yes"
+					"preset"	: "1",
+					"pattern" 	: {
+						"match"	: {
+							"lossy"		: "no",
+							"lossless"	: "yes"
+						}
 					}
 				}
 			},
@@ -155,8 +156,9 @@
 				"unifier"		: null,
 				"format"		: {
 					"preset": null,
-					"toggle": true,
-					"pattern": ["lossless", "lossy"]
+					"pattern": {
+						"toggle": ["lossless", "lossy"]
+					}
 				}
 			}
 		],
@@ -165,8 +167,7 @@
 				"flag"			: "-rgb_to_420",
 				"unifier"		: null,
 				"format"		: {
-					"preset":	null,
-					"toggle": true
+					"preset":	null
 				}
 			},
 			{}

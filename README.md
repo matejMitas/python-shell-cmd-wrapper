@@ -118,8 +118,6 @@ Distinction might be unclear. `number` is a number of parameter's parts that con
 ```
 Example of `points` flag. Please note `list` are to be fully supported in version (`0.4`).
 
-
-
 <!---
 Routine
 ------------------

@@ -172,57 +172,9 @@ class PyShellWrapper:
 		return ret_opts
 
 
-	# def _set_variable_single(self, flag_blueprint, opts):
-	# 	flag_blueprint = self._match_flag(flag)
-	# 	"""
-	# 	First thing to decide is whenever single or more values
-	# 	were supplied
-	# 	"""
-	# 	items_count = flag_blueprint['format']['number']
-
-	# 	"""
-	# 	Check for easiest case, only one primitive value 
-	# 	"""
-	# 	if self._is_primitive(opts):
-	# 		self._transform_flag(flag_blueprint, opts)
-	# 	else:
-	# 		"""
-	# 		Array is single value, list means more expansion.
-	# 		But arrays can be nested.
-	# 		"""
-	# 		if self._is_array(opts):
-	# 			"""
-	# 			Nested array, flag with list option
-	# 			"""
-	# 			if type(opts[0]) == self._is_array(opts):
-	# 				"""
-	# 				TODO: address list in next version
-	# 				"""
-	# 				pass
-	# 			else:
-	# 				self._transform_flag(flag_blueprint, opts)
-	# 		else:
-	# 			for opt in opts:
-	# 				self._transform_flag(flag_blueprint, opt)
-
-
-	# 	if items_count > 1:
-	# 			"""
-	# 			Multiple values, can be in nested list
-	# 			"""
-	# 			pass
-	# 			#print('multiple')
-
-	# 	else:
-	# 		"""
-	# 		Value is primitive data type, assign can take place
-	# 		"""
-	# 		pass
-	# 		#print(opts)
-	# 		#print(self._transform_flag(flag_blueprint, opts))
-	# 		#print('single')
-
-
+	"""
+	BLUEPRINT
+	"""
 	def _get_blueprint(self):
 		parser = Parser('blueprint', self.blueprint_name, self.command)
 		if not parser.parse():
@@ -241,6 +193,9 @@ class PyShellWrapper:
 
 		return True
 
+	"""
+	TRANSFORM
+	"""
 	def _transform_flag(self, flag_blueprint, opts):
 		"""
 		Take input flag and transform it to the desired format
@@ -262,7 +217,7 @@ class PyShellWrapper:
 		if 'list' in flag_blueprint['format']:
 			transformed_opt = None
 		else:
-			transformed_opt = self._transform_opts(flag_blueprint['format'], opts)
+			transformed_opt = self._handle_opts(flag_blueprint['format'], opts)
 
 		if transformed_opt:
 			"""
@@ -281,38 +236,42 @@ class PyShellWrapper:
 		return transform_buffer
 
 
-	def _transform_opts(self, opts_blueprint, opts):
-		opts_preset = opts_blueprint['preset']
-		opts_number = opts_blueprint['number'] - 1
-		opts_preset_type = type(opts_preset)
-		
-		if opts_preset_type == str:
-			"""
-			String means matching predefined presets
-			"""
-			matched_preset = defs.FORMAT_OPTIONS[opts_number][opts_preset]
+	def _handle_opts(self, opts_blueprint, opts):
+		print(opts_blueprint)
 
-			if opts_number:
-				"""
-				Multiple part parameter
-				"""
-				return matched_preset.format(*opts)
-			else:
-				"""
-				Single part
-				"""
-				return matched_preset.format(opts)
+		# opts_preset = opts_blueprint['preset']
+		# opts_number = opts_blueprint['number'] - 1
+		# opts_preset_type = type(opts_preset)
 
-		elif opts_preset_type == dict:
-			"""
-			Custom formating is also enabled, setting divider/left & right side of expression
-			"""
-			opts_prepared = '{}'.format(opts_preset['divider']).join([str(_) for _ in opts])
-			return '{}{}{}'.format(opts_preset['left'], opts_prepared, opts_preset['right'])
+		# if opts_preset_type == str:
+		# 	"""
+		# 	String means matching predefined presets
+		# 	"""
+		# 	matched_preset = defs.FORMAT_OPTIONS[opts_number][opts_preset]
+
+		# 	if opts_number:
+		# 		"""
+		# 		Multiple part parameter
+		# 		"""
+		# 		return matched_preset.format(*opts)
+		# 	else:
+		# 		"""
+		# 		Single part
+		# 		"""
+		# 		return matched_preset.format(opts)
+
+		# elif opts_preset_type == dict:
+		# 	"""
+		# 	Custom formating is also enabled, setting divider/left & right side of expression
+		# 	"""
+		# 	opts_prepared = '{}'.format(opts_preset['divider']).join([str(_) for _ in opts])
+		# 	return '{}{}{}'.format(opts_preset['left'], opts_prepared, opts_preset['right'])
 
 
-	def _transform_opts_list(self, opts_blueprint, opts):
+	def _transform_opts():
 		pass
+
+
 
 	def _match_flag(self, flag):
 		"""
@@ -323,6 +282,9 @@ class PyShellWrapper:
 		except KeyError:
 			raise KeyError('flag \'{}\' is not available in current blueprint. You can either try different blueprint or create new one'.format(flag))
 
+	"""
+	UTILS
+	"""
 	def _is_array(self, item):
 		accepted_types = [list, tuple]
 		for accepted_type in accepted_types:

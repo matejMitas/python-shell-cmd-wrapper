@@ -1,0 +1,16 @@
+{
+    "routines": [
+        {
+            "variable" : [
+                {
+                    "flag" : "resize",
+                    "opts" : [10, 20, 50, 70, 90]
+                }
+            ],
+            "fixed"   : {
+                "colorspace": "rgb"
+            },
+            "auxiliary" : ["test.out"]
+        }
+    ]
+}

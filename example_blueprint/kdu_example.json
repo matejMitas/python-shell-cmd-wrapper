@@ -109,8 +109,7 @@
 				"flag"			: "-rgb_to_420",
 				"unifier"		: null,
 				"format"		: {
-					"preset": null,
-					"toggle": true
+					"preset": null
 				}
 			}
 		]
