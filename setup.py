@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name='pyshellwrapper', 
-    version="0.2.0",
+    version="0.3.0",
     description='Working with shell programs in Python made easier.',
     long_description=README,
     long_description_content_type="text/markdown",

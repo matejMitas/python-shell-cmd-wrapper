@@ -49,12 +49,12 @@ translation authors keep things up-to-date.
 ### Added
 - Support for lists
 
-## [0.3.0] - ???
+# Released
+
+## [0.3.0] - 2019-07-05
 ### Added
 - Support for `toggle` flags
 - Support for `match` flags
-
-# Released
 
 ## [0.2.0] - 2019-07-04
 ### Added
