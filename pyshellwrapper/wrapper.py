@@ -215,9 +215,7 @@ class PyShellWrapper:
 			unifier 	= flag_blueprint['unifier']
 			opt_format 	= flag_blueprint['format']
 
-			print(flag_blueprint)
-
-			if opt_format:
+			if opt_format and opt_format['preset']:
 				"""
 				Opts are the most important part of the transformation because
 				they need to put into the right format or even concatenated to
@@ -245,8 +243,20 @@ class PyShellWrapper:
 				"""
 				Without format is only toggle
 				"""
-				if opts:
-					transform_buffer.append(flag)
+				if not opt_format:
+					if opts:
+						transform_buffer.append(flag)
+				else:
+					"""
+					Toggle format, list has two items, indexes as following:
+					0 - False, 1 - True
+					"""
+					indexes = opt_format['pattern']['toggle']
+					try:
+						if indexes.index(opts):
+							transform_buffer.append(flag)
+					except ValueError:
+						raise ValueError('"{}" is not a toggle match options, available {}'.format(opts, indexes))
 		
 		return transform_buffer
 
@@ -258,7 +268,10 @@ class PyShellWrapper:
 		"""
 		if 'pattern' in opts_blueprint:
 			pattern = opts_blueprint['pattern']['match']
-			return self._transform_opts(opts_blueprint, pattern[opts])
+			try:
+				return self._transform_opts(opts_blueprint, pattern[opts])
+			except KeyError:
+				raise ValueError('"{}" is not a match options, available {}'.format(opts, list(pattern.keys())))
 		else:
 			return self._transform_opts(opts_blueprint, opts)
 
