@@ -28,6 +28,15 @@ correct_results = {
 	'test_output_string': [
 		'kdu_compress -i in.ppm Cblk={32,64} Creversible=no Stiles={432,765}', 
 		'kdu_compress -i in.ppm Cblk={32,64} Creversible=no Stiles={111,122}'
+	],
+	'test_simple_toggle': [
+		['kdu_compress', '-rgb_to_420']
+	],
+	'test_simple_match': [
+		['kdu_compress', 'Creversible=yes']
+	],
+	'test_toggle_match': [
+		['opj_compress', '-I']
 	]
 }
 
@@ -38,6 +47,10 @@ def wget():
 @pytest.fixture
 def kdu_compress():
 	return Library(blueprint='compress_libs', command='kdu_compress')
+
+@pytest.fixture
+def opj_compress():
+	return Library(blueprint='compress_libs', command='opj_compress')
 
 """
 Handling assertions
@@ -94,3 +107,33 @@ def test_output_string():
 
 	kdu.set_variable(tiles=[(432, 765), (111, 122)])
 	handle_output(kdu, test_output_string)
+
+
+
+"""
+Toggle and toggle match
+"""
+def test_simple_toggle(kdu_compress):
+	kdu_compress.set_fixed(
+		inline_rgb_420=True
+	)
+
+	handle_output(kdu_compress, test_simple_toggle)
+
+def test_toggle_match(opj_compress):
+	opj_compress.set_fixed(
+		compression="lossy"
+	)
+
+	handle_output(opj_compress, test_toggle_match)
+
+
+"""
+Match
+"""
+def test_simple_match(kdu_compress):
+	kdu_compress.set_fixed(
+		compression="lossless"
+	)
+
+	handle_output(kdu_compress, test_simple_match)
