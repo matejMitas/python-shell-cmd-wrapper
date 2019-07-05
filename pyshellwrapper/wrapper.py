@@ -203,43 +203,50 @@ class PyShellWrapper:
 		"""
 		transform_buffer 		= []
 		"""
-		Mandatory parts of blueprint as local variable for 
-		more readable code
+		Whilst having multiple commands in blueprint so flags
+		does need to be defined for all commands, skip empty ones
 		"""
-		flag 		= flag_blueprint['flag']
-		unifier 	= flag_blueprint['unifier']
-		opt_format 	= flag_blueprint['format']
-
-		if opt_format:
+		if flag_blueprint:
 			"""
-			Opts are the most important part of the transformation because
-			they need to put into the right format or even concatenated to
-			a list hence they are first to address
+			Mandatory parts of blueprint as local variable for 
+			more readable code
 			"""
-			if 'list' in opt_format:
-				transformed_opt = None
-			else:
-				transformed_opt = self._handle_opts(opt_format, opts)
+			flag 		= flag_blueprint['flag']
+			unifier 	= flag_blueprint['unifier']
+			opt_format 	= flag_blueprint['format']
 
-			if transformed_opt != None:
+			print(flag_blueprint)
+
+			if opt_format:
 				"""
-				Handle unifier
-				"""		
-				if unifier:
-					transform_buffer.append('{}{}{}'.format(flag, unifier, transformed_opt))
+				Opts are the most important part of the transformation because
+				they need to put into the right format or even concatenated to
+				a list hence they are first to address
+				"""
+				if 'list' in opt_format:
+					transformed_opt = None
 				else:
+					transformed_opt = self._handle_opts(opt_format, opts)
+
+				if transformed_opt != None:
 					"""
-					Handle flag
-					"""
-					if flag:
-						transform_buffer.append(flag)
-					transform_buffer.append(transformed_opt)
-		else:
-			"""
-			Without format is only toggle
-			"""
-			if opts:
-				transform_buffer.append(flag)
+					Handle unifier
+					"""		
+					if unifier:
+						transform_buffer.append('{}{}{}'.format(flag, unifier, transformed_opt))
+					else:
+						"""
+						Handle flag
+						"""
+						if flag:
+							transform_buffer.append(flag)
+						transform_buffer.append(transformed_opt)
+			else:
+				"""
+				Without format is only toggle
+				"""
+				if opts:
+					transform_buffer.append(flag)
 		
 		return transform_buffer
 

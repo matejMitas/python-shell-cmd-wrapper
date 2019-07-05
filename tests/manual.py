@@ -66,14 +66,25 @@ Set variable parameters
 
 
 
-kdu = Library(blueprint='./example_blueprint/kdu_example.json', command='kdu_compress')
-kdu.set_fixed(
-	input='test.ppm',
-	output='test.jp2',
-	tiles=(122,211),
-	compression="lossy",
+# kdu = Library(blueprint='compress_libs', command='kdu_compress')
+# kdu.set_fixed(
+# 	input='test.ppm',
+# 	output='test.jp2',
+# 	tiles=(122,211),
+# 	compression="lossy",
+# 	inline_rgb_420=True
+# )
+
+opj = Library(blueprint='compress_libs', command='opj_compress')
+opj.set_fixed(
+	# input='test.ppm',
+	# output='test.jp2',
+	# tiles=(122,211),
+	# compression="lossy",
 	inline_rgb_420=True
 )
 
-for variant in kdu.construct():
+# for variant in kdu.construct():
+# 	print(variant)
+for variant in opj.construct():
 	print(variant)
