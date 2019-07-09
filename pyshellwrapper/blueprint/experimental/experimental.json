@@ -50,8 +50,8 @@
 				"unifier"	: null,
 				"format"	: {
 					"number"	: 2,
-					"preset":	"2,",
-					"units": "px"
+					"preset"	: "2,",
+					"units"		: "px"
 				}
 			}
 		]
