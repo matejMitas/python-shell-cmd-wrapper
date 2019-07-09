@@ -120,20 +120,30 @@ class Parser:
 		else:
 			raise TypeError("Specified command must by either index (int) or name (str), is '{}'".format(type(self.possible_command)))
 
+		#return True
 		if self._check_blueprint():
-			return True
+		 	return True
 
 	def _parse_routine(self):
 		pass
 
 	def _check_blueprint(self):
+
+		"""
+		TODO:
+			- Table of matching templates
+			- Table of formats
+			- Table of toggle flags (substitute them directly?)
+		"""
+
+
 		"""
 		'settings' enables to set required flags
 		"""
-		all_flags = list(self.data['flags'].keys())
-		for required_flag in self.data['settings']['required_flags']:
-			if required_flag not in all_flags:
-				raise KeyError("Flag '{}' is required but not specified in 'flags'".format(required_flag))
+		# all_flags = list(self.data['flags'].keys())
+		# for required_flag in self.data['settings']['required_flags']:
+		# 	if required_flag not in all_flags:
+		# 		raise KeyError("Flag '{}' is required but not specified in 'flags'".format(required_flag))
 		
 
 		"""
@@ -141,19 +151,23 @@ class Parser:
 		validated againts its schema
 		"""
 		for flag_key, flag_value in self.data['flags'].items():
-			if len(flag_value) != self.no_of_commands:
-				raise ValueError("Supplied number of libraries {} does not match all listed variants for '{}'".format(self.no_of_commands, flag_key))
+			print(flag_key)
+			print(flag_value)
+			print()
 
-			for flag in flag_value:
-				"""
-				Sometimes one might want to omit partical library's flag, while doing so supplied
-				empty object is not valid according to the schema so it's skipped
-				"""
-				if flag:
-					try:
-						js.validate(instance=flag, schema=defs.FLAG_SCHEMA)
-					except js.exceptions.ValidationError as expt:
-						raise SyntaxError(expt)
+			# if len(flag_value) != self.no_of_commands:
+			# 	raise ValueError("Supplied number of libraries {} does not match all listed variants for '{}'".format(self.no_of_commands, flag_key))
+
+			# for flag in flag_value:
+			# 	"""
+			# 	Sometimes one might want to omit partical library's flag, while doing so supplied
+			# 	empty object is not valid according to the schema so it's skipped
+			# 	"""
+			# 	if flag:
+			# 		try:
+			# 			js.validate(instance=flag, schema=defs.FLAG_SCHEMA)
+			# 		except js.exceptions.ValidationError as expt:
+			# 			raise SyntaxError(expt)
 		return True
 
 	def _check_routine(self):

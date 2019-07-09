@@ -34,7 +34,7 @@ GENERAL_SCHEMA = {
 	'properties'			: {
 		'settings' : {
 			'type' 		 : 'object',
-			'additionalProperties'	: False,
+			#'additionalProperties'	: False,
 			'required'	 : ['required_flags', 'commands'],
 			'properties' : {
 				'required_flags': {

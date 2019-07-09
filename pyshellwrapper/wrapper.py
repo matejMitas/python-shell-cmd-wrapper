@@ -288,8 +288,9 @@ class PyShellWrapper:
 		if opts_preset_type == str:
 			"""
 			String means matching predefined presets
+			Replacement of '%' needs to take place in order to satisfy format strings
 			"""
-			matched_preset = defs.FORMAT_OPTIONS[opts_number][opts_preset]
+			matched_preset = defs.FORMAT_OPTIONS[opts_number][opts_preset].replace('%', '{}')
 
 			if opts_number:
 				"""
