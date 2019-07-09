@@ -222,7 +222,11 @@ class PyShellWrapper:
 				a list hence they are first to address
 				"""
 				if 'list' in opt_format:
-					transformed_opt = None
+					temp_opts = []
+					for opt in opts:
+						temp_opts.append(self._handle_opts(opt_format, opt))
+
+					transformed_opt = '{}'.format(opt_format['list']['divider']).join(temp_opts)
 				else:
 					transformed_opt = self._handle_opts(opt_format, opts)
 
