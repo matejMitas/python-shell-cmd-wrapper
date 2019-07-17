@@ -47,6 +47,10 @@ translation authors keep things up-to-date.
 
 # Released
 
+## [0.4.1] - 2019-07-17
+### Added
+- Can't add duplicit flags of either kind (`variable` or `fixed`)
+
 ## [0.4.0] - 2019-07-17
 ### Added
 - Support for lists
