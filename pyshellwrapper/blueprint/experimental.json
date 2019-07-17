@@ -3,16 +3,13 @@
 		"commands" 	: [
 			"kdu_compress", "opj_compress"
 		],
-		"required_flags": [
-			"input", "output"
-		],
+		"required_flags": [],
 		"templates": {
 			"toggle": {
 				"my_flag": ["-f", null]
 			},
 			"general": {
 				"@double": {
-					"flag"		: "Cblk",
 					"unifier"	: "=",
 					"format"	: "%my_format"
 				}
@@ -20,7 +17,7 @@
 			"format": {
 				"%my_format": {
 					"number"		: 3,
-					"format_string"	: "-%|%-",
+					"format_string"	: "-%|%-"
 				},
 				"%voxel": {
 					"number"		: 3,
