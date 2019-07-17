@@ -45,11 +45,11 @@ translation authors keep things up-to-date.
 ### Added
 - Flags can be now described in separate file called `routine` that gives users much more control
 
-## [0.4.0] - ???
+# Released
+
+## [0.4.0] - 2019-07-17
 ### Added
 - Support for lists
-
-# Released
 
 ## [0.3.0] - 2019-07-05
 ### Added

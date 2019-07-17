@@ -77,9 +77,9 @@ kdu.set_fixed(
 	#mode="BYPASS"
 )
 
-# kdu.set_variable(
-# 	mode=[('5', 'RESTART'), 'BYPASS']
-# )
+kdu.set_variable(
+	mode=[('5', 'RESTART'), 'BYPASS']
+)
 
 # kdu.set_variable(
 # 	precincts=[((128,128), (256,256)), (256,256)]
