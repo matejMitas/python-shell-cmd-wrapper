@@ -214,6 +214,7 @@ class PyShellWrapper:
 			flag 		= flag_blueprint['flag']
 			unifier 	= flag_blueprint['unifier']
 			opt_format 	= flag_blueprint['format']
+			opt_number 	= opt_format['number']
 
 			if opt_format and opt_format['preset']:
 				"""
@@ -222,9 +223,32 @@ class PyShellWrapper:
 				a list hence they are first to address
 				"""
 				if 'list' in opt_format:
+					"""
+					Opt with number with only one part (number == 1) can not be 
+					looped over so special treatment is needed
+					"""
 					temp_opts = []
-					for opt in opts:
-						temp_opts.append(self._handle_opts(opt_format, opt))
+					if opt_number == 1:
+						if self._is_primitive(opts):
+							temp_opts.append(self._handle_opts(opt_format, opts))
+						else:
+							for opt in opts:
+								temp_opts.append(self._handle_opts(opt_format, opt))
+					else:
+						"""
+						User can supply multiple components resulting in possiblity
+						of nested items (one level)
+						"""
+						if self._is_nested_array(opts):
+							for opt in opts:
+								temp_opts.append(self._handle_opts(opt_format, opt))
+						else:
+							temp_opts.append(self._handle_opts(opt_format, opts))
+					
+					# print(opts)
+					# print(opt_number)
+					# # for opt in opts:
+					# # 	temp_opts.append(self._handle_opts(opt_format, opt))
 
 					transformed_opt = '{}'.format(opt_format['list']['divider']).join(temp_opts)
 				else:
@@ -330,6 +354,24 @@ class PyShellWrapper:
 			if isinstance(item, accepted_type):
 				return True
 		return False
+
+	def _is_nested_array(self, item):
+		if self._is_array(item):
+			"""
+			It is expected that first item in array has the same 
+			type as all the rest
+			"""
+			expected_type = type(item[0])
+			"""
+			TOOO: Type might not be the same, all it takes is an int and float
+			"""
+			# for nested_item in item:
+			# 	if not type(nested_item) == expected_type:
+
+			# 		pass
+			return self._is_array(item[0])
+		else:
+			return False
 
 	def _is_primitive(self, item):
 		rejected_types = [list, tuple, set, dict]
