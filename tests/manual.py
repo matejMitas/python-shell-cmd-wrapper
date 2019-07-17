@@ -65,26 +65,25 @@ Set variable parameters
 # 	print(variant)
 
 
-
 kdu = Library(blueprint='compress_libs', command='kdu_compress')
 kdu.set_fixed(
 	input='test.ppm',
 	output='test.jp2',
-	tiles=(122,211),
-	compression="lossy",
-	inline_rgb_420=True
+	#tiles=(122,211),
+	#compression="lossy",
+	#inline_rgb_420=True,
+	#precincts=((128,128), (256,256)),
+	#precincts=((128,128), (256,256)), 
+	#mode="BYPASS"
 )
 
-opj = Library(blueprint='compress_libs', command='opj_compress')
-opj.set_fixed(
-	# input='test.ppm',
-	# output='test.jp2',
-	# tiles=(122,211),
-	compression="lossy",
-	inline_rgb_420=True
-)
+# kdu.set_variable(
+# 	mode=[('5', 'RESTART'), 'BYPASS']
+# )
+
+# kdu.set_variable(
+# 	precincts=[((128,128), (256,256)), (256,256)]
+# )
 
 for variant in kdu.construct():
-	print(variant)
-for variant in opj.construct():
 	print(variant)
