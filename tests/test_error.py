@@ -24,6 +24,11 @@ def test_multiple_fixed(wget):
 		wget.set_fixed(source='google.com')
 		wget.set_fixed(source='google.com')
 
+def test_set_variable_already_fixed(wget):
+	with pytest.raises(ValueError):
+		wget.set_fixed(source='google.com')
+		wget.set_variable(source='google.com')
+
 """
 Faulty commands
 """

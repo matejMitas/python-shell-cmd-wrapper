@@ -66,19 +66,10 @@ Set variable parameters
 
 
 kdu = Library(blueprint='compress_libs', command='kdu_compress')
-kdu.set_fixed(
-	input='test.ppm',
-	output='test.jp2',
-	#tiles=(122,211),
-	#compression="lossy",
-	#inline_rgb_420=True,
-	#precincts=((128,128), (256,256)),
-	#precincts=((128,128), (256,256)), 
-	#mode="BYPASS"
-)
+kdu.set_fixed(input='test.ppm', output='test.jp2')
 
 kdu.set_variable(
-	mode=[('5', 'RESTART'), 'BYPASS']
+	output='test.jp2'
 )
 
 # kdu.set_variable(

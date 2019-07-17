@@ -106,11 +106,7 @@ class PyShellWrapper:
 			"""
 			Setting a flag is only allowed once
 			"""
-			already_set = self.structure['fixed']['already_set']
-			if flag in already_set:
-				raise ValueError('Flag \'{}\' is already set, fixed flags can only be set once.'.format(flag))
-			else:
-				already_set.append(flag)
+			self._is_flag_set(flag, True)
 			"""
 			Find corresponding partition of the blueprint and 
 			transform flag accordingly 
@@ -121,6 +117,10 @@ class PyShellWrapper:
 
 	def set_variable(self, **kwargs):
 		for flag, opts in kwargs.items():
+			"""
+			Flag might already be set by 'fixed' 
+			"""
+			self._is_flag_set(flag, False)
 			"""
 			Support only for one variable flag
 			"""
@@ -354,6 +354,17 @@ class PyShellWrapper:
 			if isinstance(item, accepted_type):
 				return True
 		return False
+
+	def _is_flag_set(self, flag, append_flag):
+		already_set = self.structure['fixed']['already_set']
+		if flag in already_set:
+			if append_flag:
+				raise ValueError('Flag \'{}\' is already set, fixed flags can only be set once.'.format(flag))
+			else:
+				raise ValueError('Flag \'{}\' is already set as a fixed one.'.format(flag))
+		else:
+			if append_flag:
+				already_set.append(flag)
 
 	def _is_nested_array(self, item):
 		if self._is_array(item):
