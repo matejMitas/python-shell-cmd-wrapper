@@ -214,8 +214,7 @@ class PyShellWrapper:
 			flag 		= flag_blueprint['flag']
 			unifier 	= flag_blueprint['unifier']
 			opt_format 	= flag_blueprint['format']
-			opt_number 	= opt_format['number']
-
+			
 			if opt_format and opt_format['preset']:
 				"""
 				Opts are the most important part of the transformation because
@@ -223,6 +222,7 @@ class PyShellWrapper:
 				a list hence they are first to address
 				"""
 				if 'list' in opt_format:
+					opt_number 	= opt_format['number']
 					"""
 					Opt with number with only one part (number == 1) can not be 
 					looped over so special treatment is needed
